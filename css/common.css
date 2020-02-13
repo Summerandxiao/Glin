@@ -1,0 +1,11 @@
+.flex{
+    display: flex;
+    justify-content: space-around;
+}
+.increaseBtn{
+    width:100%;
+    background:white;
+    color:#00a1ea;
+    text-align: center;
+   border-top:1px solid #d8d8d8;
+ }
