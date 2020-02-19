@@ -5,20 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/common.css">
+   
     <link rel="stylesheet" href="../css/icon/iconfont.css">
     <link rel="stylesheet" href="../css/vant.css">
+    <link rel="stylesheet" href="../css/iuapmobile.um.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/components/settlement.css">
+   
     <script src="../js/vue.js"></script>
     <script src="../js/vue-router.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/vant.min.js"></script>
     <script src="../js/base.js"></script>
-    <script src="../js/components/common/nav.js"></script>
     <script src="../js/components/choose_billlist.js"></script>
     <script src="../js/components/bills_list.js"></script>
-    <script src="../js/components/reimburse_new.js"></script>
+    <script src="../js/components/reimburse.js"></script>
     <script src="../js/components/new_bills.js"></script>
-    <script src="../js/components/application_new.js"></script>
+    <script src="../js/components/application.js"></script>
+   
+    <script src="../js/components/common/budget/budget_item.js"></script>
+    <script src="../js/components/common/budget/budget_list.js"></script>
+    <script src="../js/components/common/budget/budget_detail.js"></script>
+    <script src="../js/components/common/detailOfCharge/charge_list.js"></script>
+    <script src="../js/components/process_tracking.js"></script>
+	 <script src="../js/components/common/settlement/settlementDetails.js"></script>
+    <script src="../js/components/common/settlement/settlementMethod.js"></script>
+    <script src="../js/components/common/settlement/settlementInfo.js"></script>
+    <script src="../js/components/common/loan/loanInformation.js"></script>
+    <script src="../js/components/common/loan/loanDetail.js"></script>
+     <style>
+       .van-collapse-item__content {
+            padding: 0;
+            color:#323233;
+        }
+        .star{
+           color:red;
+           float:left;
+        }
+        .value {
+            border: none;
+            position: absolute;
+            right: 15px;
+            z-index: 2;
+            width: 160px;
+            height: 42px;
+            top: 1px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .um-list{
+            font-size:0.04rem;
+        }
+        .um-list li{
+          position: relative;
+          height: 44px;
+          border-bottom: 1px solid  #d8d8d8;
+        }
+        .um-list .btn{
+          background:transparent;
+          font-size:0.04rem;
+          line-height:1.8;
+        }
+     </style>
 </head>
 <body>
     <div id="app">
@@ -30,31 +78,66 @@
 <script>
     var router = new VueRouter({
         routes:[{
-            name:"chooseBills",
-            path:"/",
-            component:chooseBills,
-              },
-            {
+              name:"chooseBills",
+              path:"/",
+              component:chooseBills,
+          }, {
               name:"billList",
               path:"/billList",
-             component:billList
-            },
-            {
+              component:billList
+          }, {
               name:"newBills",
               path:"/newBills",
-             component:newBills
-             },
-             {
-              name:"newReim",
-              path:"/newReim",
-             component:newReim
-             },
-             {
-              name:"newApply",
-              path:"/newApply",
-             component:newApply
-             }
-        ]
+              component:newBills
+          }, {
+              name:"reimburse",
+              path:"/reimburse",
+              component:reimburse
+          }, {
+              name:"application",
+              path:"/application",
+              component:application
+          }, {
+              name: "settlementDetails",
+              path: "/settlementDetails",
+              component: settlementDetails
+          }, {
+              name: "settlemetMethod",
+              path: "/settlemetMethod",
+              component: settlemetMethod
+          }, {
+              name: "settlementInfo",
+              path: "/settlementInfo",
+              component: settlementInfo
+          }, {
+              name: "loanInformation",
+              path: "/loanInformation",
+              component: loanInformation
+          }, {
+              name: "loanDetail",
+              path: "/loanDetail",
+              component: loanDetail
+          }, {
+              name:"budgetItem",
+              path:"/budgetItem",
+              component:budgetItem
+          }, {
+              name:"budgetList",
+              path:"/budgetList",
+              component:budgetList
+          }, {
+              name:"budgetDetail",
+              path:"/budgetDetail",
+              component:budgetDetail
+          }, {
+              name:"chargeList",
+              path:"/chargeList",
+              component:chargeList
+          }, {
+              name:"processTracking",
+              path:"/processTracking",
+              component:processTracking
+          }]
     })
   new Vue({
        el:"#app",

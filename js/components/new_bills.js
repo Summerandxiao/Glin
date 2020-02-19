@@ -1,10 +1,11 @@
 //选择新增的报销单/申请单类型
+createScript("../js/components/common/nav.js")
 var newBills = `
-<div>
+<div class="bill">
     <navBar :title='title'></navBar>
-    <div class="flex">
+    <div class="flex section">
        <router-link  v-for="(item,index) in list" :key="index"
-         :to="{  path: kind=='reim'? '/newReim' : '/newApply' ,query:{type:item.type,kind:kind} }" class="typeList" tag="div">
+         :to="{  path: kind=='reim'? '/reimburse' : '/application' ,query:{type:item.type,kind:kind,pageType:pageType} }" class="typeList" tag="div">
           <div> 
               <img :src="item.img"></i>
               <span> {{item.title}}</span>
@@ -20,6 +21,7 @@ var newBills = Vue.component("newBills",{
          return{
              title:"单据类型",
              kind:"reim",
+             pageType:'new',
              list:[
                 {title:"差旅费报销单",type:"travel",img:"../img/toDo.png"},
                 {title:"车辆维修报销单",type:"car",img:"../img/ckhs.png"},

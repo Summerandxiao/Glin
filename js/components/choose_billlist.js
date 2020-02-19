@@ -1,8 +1,9 @@
 //选择进入报销单或申请单列表
+createScript("../js/components/common/nav.js")
 var bills = `
-<div>
+<div class="bill">
     <navBar :title="title"></navBar>
-    <div class="flex">
+    <div class="flex section">
     <router-link style="font-size:0.01rem" 
     v-for="(item,index) in list" tag="div"  
     :key="index"  class="typeList"  :to="{path:'/billList',query:{type:item.type}}">
@@ -35,7 +36,6 @@ var chooseBills = Vue.component("chooseBills",{
         let hei = px2rem(80)+"rem"
         this.$nextTick(()=>{
             $(".typeList").css({'width':wid,'height':hei})
-            
          })
          
         

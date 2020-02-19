@@ -1,0 +1,62 @@
+
+.settlement-detail .van-cell .label {
+    display: inline-block;
+    width: 100px;
+    color: #666;
+}
+.settlement-amount{
+    padding:0.07rem 0;
+    background: white;
+}
+.settlement-detail .settlement-amount .title,
+.settlement-detail .settlement-amount .amount {
+    text-align: center;
+    color: #333;
+    font-family:PingFangSC-Regular,PingFang SC;
+}
+
+.settlement-detail .settlement-amount .title {
+    font-size: .04rem;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.settlement-detail .settlement-amount .amount {
+    font-size: .05rem !important;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.settlement-info .van-cell .van-field__label span {
+    color: #666;
+}
+
+/* 结算信息保存按钮 */
+.settlement-info .van-button--round {
+    width: 80%;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    margin-left: -40%;
+}
+
+
+.settlement .total {
+    display: flex;
+    width: 1rem;
+    height: .15rem;
+    background: #fff;
+    border-top: 2px solid #cccccc;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.settlement .total span {
+    font-size: 16px;
+}
+
+.settlement .total span:last-child {
+    margin-right: 15px;
+    color: #E3AB45;
+}

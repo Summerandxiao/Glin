@@ -1,12 +1,15 @@
 //头部导航
-var navBar = `<van-nav-bar
- :title="title"
-left-text="返回"
-right-text="按钮"
-left-arrow
-@click-left="onClickLeft"
-@click-right="onClickRight"
-/>`
+var navBar = `
+<div class="header">
+    <van-nav-bar
+    :title="title"
+    left-text="返回"
+    right-text="按钮"
+    left-arrow
+    @click-left="onClickLeft"
+    @click-right="onClickRight"
+    />
+   </div> `
 var navBar =  Vue.component("navBar",{
         template:navBar,
         props:['title'],
