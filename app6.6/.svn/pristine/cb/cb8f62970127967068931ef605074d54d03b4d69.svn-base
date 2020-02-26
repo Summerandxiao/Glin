@@ -1,0 +1,16 @@
+#login-win {
+	width: 100%;
+	background-color: white;
+}
+#login-form {
+/* background: #ffffff; */
+	min-height: 400px;
+	border-radius: 5px;
+}
+.login-input {
+	margin: 10px 0;
+}
+
+#errorInfo{
+color:#ff0000;
+}

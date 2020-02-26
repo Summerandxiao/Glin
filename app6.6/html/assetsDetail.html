@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+        <link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+        <link rel="stylesheet" href="../css/pages/main-module.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+        <script type="text/javascript" src="../js/knockout-2.2.0.js"></script>
+        <script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+		<script src="../js/doT.js" ></script>
+		<script src="../js/app/assetsDetail.js" ></script>
+	</head>
+<body>
+<div class="um-page assetsDetail-main" id="assetsDetail">
+	<div class="um-header" >
+		<a href="#" onclick="summer.closeWin();" class="um-back">返回</a>
+		<h3>资产明细</h3>
+	</div>
+	<div class="um-content">
+	
+    <div class="um-listgroup-wrap" id="listgroup">
+    	<ul class="um-listgroup">
+            <li class="um-listgroup-group">
+                <a class="um-box-vc um-listgroup-title">
+    				<!-- <span class="um-listgroup-icon">
+    					<i class="ti-angle-down"></i>
+    				</span> -->
+    				<span class="f15">基本信息</span>
+    		    </a>
+    			<ul class="um-list um-no-active" style="padding-left: 40px;">
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">卡片编号</span>
+                                    <span class="f14 fr" id="kpbh"></span>
+    							</div>
+    						</div>
+    				</li>
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">资产名称</span>
+                                    <span class="f14 fr" id="zcmc"></span>
+    							</div>
+    						</div>
+    				</li>
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">领用日期</span>
+                                    <span class="f14 fr" id="lyrq" ></span>
+    							</div>
+    						</div>
+    				</li>
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">购置日期</span>
+                                    <span class="f14 fr" id="gzrq"></span>
+    							</div>
+    						</div>
+    				</li>
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">品牌</span>
+                                    <span class="f14 fr" id="pp"></span>
+    							</div>
+    						</div>
+    				</li>
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">价值</span>
+                                    <span class="f14 fr" id="zcjz"></span>
+    							</div>
+    						</div>
+    				</li>
+    			</ul>
+            </li>
+        </ul>            
+    </div>
+
+	</div>
+	<div class="um-footer">		
+	</div>
+</div>
+
+        <script>
+        	$(function () {           
+        		//构造控件实例
+        		var listgroup = UM.listgroup("#listgroup");	//隐藏 打开		
+        	});
+        </script>
+
+</body>

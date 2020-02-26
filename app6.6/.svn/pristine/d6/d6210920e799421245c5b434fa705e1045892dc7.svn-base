@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/pages/main-module.css">
+		<link rel="stylesheet" href="../css/pages/linkBillList.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/angular.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script src="../js/app/linkBillList.js" ></script>
+	</head>
+	<body ng-app="linkBillList" ng-controller="ctrlForm">
+		<div class="um-win" id="linkBillList">
+			<div class="um-header" >
+				<h3>联查单据列表</h3>
+			</div>
+			<div class="um-content">
+				<div ng-repeat="item in linkBills">
+					<a class="um-box-vc um-listgroup-title"> <span class="f18">{{item.billType}}</span> </a>
+					<ul class="um-list um-no-active" id ="{{billType}}">
+						<li ng-repeat="it in item.billList" class="um-listview-row" ng-click="clickLi(it)">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-body " style="padding:10px;">
+									<div class="loading fl">
+										<span>{{it.billNo}}</span>
+									</div>
+									<div class="loading fr">
+										<i class="ti-angle-right" style="margin:4px"></i>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>

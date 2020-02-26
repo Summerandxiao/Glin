@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/pages/main-module.css">	
+		<script src="../js/summer.js" ></script>		
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script src="../js/app/MyInfo.js" ></script>
+	</head>
+	<body>
+		<div class="um-win MyInfo-main" id="MyInfo">
+			<div class="um-header" >
+				<h3>我</h3>
+			</div>
+
+			<div class="um-content">
+				<div class="img-myinfo" id="img_myinfo">
+					<img src="../img/logintop-me.png" width="140px" style="height:140px;" class="um-rounded um-img-responsive" id="img_my">
+				</div>
+                <ul class="um-list" style="margin-top: 20px;">
+                	<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left pl15">
+									登录账号
+								</div>
+								<div class="um-list-item-right">
+									<input type="text" class="form-control tr" placeholder="" value="" id="userId">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left pl15">
+									用户名
+								</div>
+								<div class="um-list-item-right">
+									<input type="text" class="form-control tr" placeholder="" value="" id="userName" >
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left pl15">
+									单位
+								</div>
+								<div class="um-list-item-right">
+									<a onclick="initCompany()" href="javascript:void(0)" class="btn" style="text-align:center;border: none">
+									<span id="coName"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left pl15">
+									手机号
+								</div>
+								<div class="um-list-item-right">
+									<input type="text" class="form-control tr" placeholder="" value="" id="userMobile">
+								</div>
+							</div>
+						</div>
+					</li>
+    			</ul>
+    			
+    			<ul class="um-list" style="margin-top: 20px;">
+   					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left pl15">
+									版本信息
+								</div>
+								<div class="um-list-item-right">
+									<input type="text" class="form-control tr" placeholder="" value="" id="appVersion" >
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left pl15">
+									修改密码
+								</div>
+								<div class="um-list-item-right">
+									<a onclick="updatePass()" href="javascript:void(0)" class="btn" style="border: none"></a>
+								</div>
+							</div>
+						</div>
+					</li>
+    			</ul>
+    			
+    			<ul class="um-list" style="margin-top: 20px;">
+   					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-body">
+									<button onclick="exit()" href="javascript:void(0)" style="border: none;background-color: white;width: 100%"><b style="color:#0085ff;width: 50%;font-size: 15px">退出登录</b></button>
+								</div>
+							</div>
+						</div>
+					</li>
+    			</ul>
+    			
+			</div>
+
+			<div class="um-footer">
+			    <div class="um-footerbar">
+			        <a href="#" id="upComing" class="um-footerbar-item">
+			            <div class="icon-toDo mb5"></div>
+			            <div class="f12 lh1">
+			                待办
+			            </div>
+			        </a>
+			        <a href="#" id="index" class="um-footerbar-item">
+			            <div class="icon-home mb5"></div>
+			            <div class="f12 lh1">
+			                应用
+			            </div>
+			        </a>
+			        <a href="#" id="MyInfo" class="um-footerbar-item active">
+			            <div class="icon-me mb5"></div>
+			            <div class="f12 lh1">
+			                我
+			            </div>
+			        </a>
+			    </div>
+			</div>
+		</div>
+	</body>
+</html>

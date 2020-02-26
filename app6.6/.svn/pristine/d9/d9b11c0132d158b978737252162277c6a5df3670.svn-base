@@ -1,0 +1,10 @@
+<html>
+<body>
+<script>
+		var id = 20170621150949410;
+		var id1 = id;
+		console.log(id1);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+
+.loan-detail .van-cell-group .van-cell .van-cell__title {
+    flex: none;
+    width: 40%;
+}
+
+.loan-information .van-checkbox-group {
+    background: #eeeeee;
+}
+
+.loan-information .van-checkbox-group .van-cell:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.loan-information .van-checkbox-group .van-cell:not(:last-child)::after {
+    border: none;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box {
+    display: flex;
+    height: .48rem;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .van-checkbox {
+    align-items: flex-start;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-bill .title {
+    display: inline-block;
+    text-align: center;
+    width:0.24rem;
+    height:0.06rem;
+    color: #4A90E2;
+    background:#EBF3FB;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-bill .billno {
+    color: #666666;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .meeting-title {
+    margin-top: .025rem;
+    color: #333333;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-info {
+    display: flex;
+    width: .75rem;
+    margin-top: .025rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-info .loan-info-box {
+    width:0.35rem;
+    height:0.16rem;
+    background:rgba(243,243,243,1);
+    border-radius:0.01rem;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-info .loan-info-box:first-child {
+    margin-right: .05rem;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-info .loan-info-box p {
+    margin: 0;
+    text-align: center;
+    color: #666666;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-info .loan-info-box p:first-child {
+    margin-top: 3px;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .loan-info .loan-info-box p:last-child {
+    font-size: 16px;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .write-off {
+    display: flex;
+    width: .75rem;
+    height: .13rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .write-off div {
+    color: #333333;
+    font-size: 16px;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .write-off .write-off-title {
+    display: flex;
+    align-items: center;
+}
+
+.loan-information .van-checkbox-group .van-cell .item-box .right-item .write-off .write-off-title .van-icon-edit {
+    margin-right: 5px;
+}
+
+.loan-information .operation {
+    width: 1rem;
+    height: .2rem;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    box-shadow:0rem 0rem 0.01rem 0rem rgba(0,0,0,0.2);
+    border-top: 2px solid #cccccc;
+}
+
+.loan-information .operation .operation-box {
+    display: flex;
+    height: .12rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.loan-information .operation .van-checkbox .van-checkbox__label{
+    font-size: 14px;
+}
+
+.loan-information .operation .van-button {
+    width:0.24rem;
+    height:0.08rem;
+    line-height: .08rem;
+    padding: 0;
+}
+
+/* 借款/请款组件 */
+.loan  {
+    /* margin-bottom: .15rem; */
+}
+
+.loan  .van-cell .account {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #333333;
+}
+
+.loan  .van-cell .van-cell__title{
+    display: none;
+}
+
+.loan  .van-cell .van-icon {
+    bottom: -24px;
+}
+
+.loan  .van-cell .van-cell__value {
+    display: flex;
+    align-items: center;
+}
+
+.loan  .van-cell .van-cell__value .big-title {
+    width: .12rem;
+    height: .12rem;
+    line-height: .12rem;
+    text-align: center;
+    background: #ECF5FC;
+    color: #3892F1;
+    font-size: 18px;
+}
+
+.loan  .van-cell .van-cell__value .text {
+    text-align: left;
+    margin-left: .04rem;
+}
+
+.loan  .van-cell .van-cell__value .text p {
+    margin: 0;
+}
+
+.loan .total {
+    display: flex;
+    width: 1rem;
+    height: .15rem;
+    background: #fff;
+    border-top: 2px solid #cccccc;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.loan .total span {
+    font-size: 16px;
+}
+
+.loan .total .totalMoney {
+    display:flex;
+    justify-content: flex-start;
+    margin-right: 15px;
+    color: #E3AB45;
+    width:33%;
+}

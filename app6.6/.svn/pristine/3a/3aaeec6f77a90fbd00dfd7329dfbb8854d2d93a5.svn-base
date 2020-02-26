@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title>信息内容</title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listview.css">
+		<link rel="stylesheet" href="../css/pages/main-module.css">
+		<style>
+			.msg-info {
+				position: relative;
+			}
+			.msg-info .um-badge {
+				position: absolute;
+				right: -10px;
+				font-size: 12px;
+			}
+			.msg-header {
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				background: blue;
+				border-radius: 50%;
+				text-align: center;
+				color: white;
+			}
+			.um-listview-row:active {
+				background-color: #eee;
+			}
+			
+
+		</style>
+
+	</head>
+	<body>
+		<div class="um-win messageList-main" id="index">
+			<div class="um-header" >
+				<a href="#" id="goback" class="um-back">返回</a>
+				<h3>信息内容</h3>
+			</div>
+
+			<div id="content" class="um-content">
+				<!-- 	<img src="../img/banner0.jpg" style="width:100%"></img> -->
+				<!-- 这里插入控件和编写代码 -->
+
+				<div class="um-listview-wrap" id="listview">
+					<ul class="um-list um-no-active" data-bind="foreach: data">
+					    <li class="um-listview-row" data-bind="attr:{'id': ID}">
+					        <a href="#" class="um-swipe-action um-no-icon">
+					            <!-- <div class="um-swipe-btns">
+					                <span class="um-swipe-btn um-delete">删除</span>
+					            </div> -->
+					            <div class="title-m">
+					                <img alt="" data-bind="attr:{'src': img}" width="30" height="30">
+					                <span>系统消息</span>
+					                <!-- <span class="um-badge" data-bind="text:msgNum,visible:msgNum>0"></span> -->
+					            </div>
+					            <div class="content-m">
+					                <div class="message-m">
+					                    <!-- <h4 class="um-media-heading fb f16 um-text-overflow" data-bind="text:sender"></h4> -->
+					                    <p class="f14" data-bind="text:lastMsg"></p>
+					                </div>
+					                <div class="pr10">
+					                    <span class="um-gray f12" data-bind="text:lastTime"></span>
+					                </div>
+					            </div>
+					        </a>
+					    </li>
+					</ul>
+				</div>
+
+			</div>
+
+			<!-- <div class="um-footer"></div> -->
+		</div>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script>
+			summerready = function() {
+				var userInfo_local;
+				var pageNumber = 1;
+				var pageSize = 20;
+				var startPage = pageNumber;
+				var ip = summer.getStorage('ip')
+				var url = 'http://' + ip + '/FS';
+				$('#goback').click(function() {
+					summer.closeWin();
+					//summer.closeToWin({
+					//    id: 'index'
+					//});
+					
+					var jsfun = 'funcGoto();';
+					summer.execScript({//调用index页面的funcGOto方法 刷新未读消息条数
+					    winId: 'index',
+					    script: jsfun
+					});
+					
+					
+				});
+				
+				
+				funchaveRead = function(id){
+					var spanAttr = "#"+id+" span.um-badge";
+					$(spanAttr).attr('style','display:none'); 
+				}
+				
+				if (summer.getStorage('userInfo_local')) {//有数据
+					userInfo_local = JSON.parse(summer.getStorage('userInfo_local'));
+				    //alert(userInfo_local.userId);
+				} else {//无数据
+					summer.openWin({
+						id : 'login',
+						url : 'html/login.html',
+						pageParam : {
+							compoId : '',
+							title : '登录'
+						}
+					});
+				}
+				
+				var getMessageList = function(url,param,jsonArray,viewModel,sender,pull){
+					$.getJSON(url+"/services/pushService/getPushMessages?" + param, function(data) {
+					if (data.resultCode == "1") {
+						var newData = new Object();
+						newData.rows = data.rows;
+						var len = newData.rows.length;
+						for(var i=0;i<len;i++){
+							jsonArray.push({
+								"ID": newData.rows[i].ID,
+								"sender" : newData.rows[i].SEND_USERNAME,
+								"img" : "../img/systemmessageimg.png",
+								"msgNum" : newData.rows[i].IS_READ,
+								"lastMsg" : newData.rows[i].MESSAGE,
+								"lastTime" : newData.rows[i].SEND_DATE
+							});
+							if("pull"==pull){//是上滑或者下拉操作
+								viewModel.data.push(jsonArray[i]);
+							}
+						}
+						if("pull"==pull){
+							sender.refresh();
+						}else{//第一次打开页面加载
+						//alert("第一次打开页面加载");
+							viewModel.data = ko.observableArray(jsonArray);
+							ko.applyBindings(viewModel);
+						}
+					}
+				});
+				}
+				
+				$(function() {
+				//构造控件实例
+				var listview = UM.listview("#listview");
+				//var listview = UM.listview("#listview",{pullDistance:30,isPulling:true});
+				//Knockout绑定
+				var ViewModel = function() {
+				};
+				
+				var param = "START_ROW="
+						+ ((startPage - 1) * pageSize + 1) + "&END_ROW=" + pageNumber
+						* pageSize;
+				param += "&senderId=" + "liuli";
+				param += "&sendStatus=2&wfStatus=0";
+				//alert(param);
+				
+				var jsonArray = new Array();
+				var viewModel = new ViewModel();
+				getMessageList(url,param,jsonArray,viewModel,"","");
+				
+				//添加控件方法
+				listview.on("pullDown", function(sender) {
+					//这是可以编写列表下拉加载逻辑，参数sender即为当前列表实例对象
+					//alert("向下拉");
+					pageNumber = 1;
+					startPage = pageNumber;
+					var param = "START_ROW="
+							+ ((startPage - 1) * pageSize + 1) + "&END_ROW=" + pageNumber
+							* pageSize;
+					param += "&senderId=" + userInfo_local.userId;
+					param += "&sendStatus=2&wfStatus=0";
+					
+				
+					jsonArray = new Array();
+					//viewModel = new ViewModel();
+					viewModel.data.removeAll();
+					getMessageList(url,param,jsonArray,viewModel,sender,"pull");
+					
+				});
+				listview.on("pullUp", function(sender) {
+					//这是可以编写列表上拉刷新逻辑，参数sender即为当前列表实例对象
+				       // alert("向上拉...");
+						pageNumber += 1;
+						var startPage = pageNumber;
+						var param = "START_ROW="
+								+ ((startPage - 1) * pageSize + 1) + "&END_ROW=" + pageNumber
+								* pageSize;
+						param += "&senderId=" + userInfo_local.userId;
+						param += "&sendStatus=2&wfStatus=0";
+						
+					
+						jsonArray = new Array();
+						//viewModel.data.removeAll();
+						
+						getMessageList(url,param,jsonArray,viewModel,sender,"pull");
+				});
+				listview.on("itemClick", function(sender, args) {
+					//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+					var item = viewModel.data()[args.rowIndex];
+					//alert("您点击了列表第" + (args.rowIndex + 1) + "行！");
+					summer.setStorage("alertContent",item.lastMsg);
+					summer.setStorage("msgId", item.ID);
+					summer.openWin({
+						id : 'message',
+						url : 'html/message.html',
+						pageParam : {
+							fromPage:'messageList',
+							title : '信息内容'
+						}
+					});
+				});
+				listview.on("itemDelete", function(sender, args) {
+					//这是可以编写行删除逻辑，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+					var item = viewModel.data()[args.rowIndex];
+					param ="ID="+item.ID;
+					console.log("您点击了删除按钮!这一行的数据是" + JSON.stringify(item));
+					$.getJSON(url+"/services/pushService/delPushMessagesById?" + param, function(data) {
+						if (data.resultCode == "1") {
+							args.$target.slideUp(500, function() {
+							 	viewModel.data.remove(item);
+							}); 
+						}
+					});
+					 
+				});
+				listview.on("itemSwipeLeft", function(sender, args) {
+					//这里可以处理行左滑事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+					sender.showItemMenu(args.$target);
+
+				});
+				//listview.on("tapHold", function() {
+					//这里可以处理长按事件
+				//	console.log("您长按了列表！");
+				//});
+					
+			});
+				
+			};
+		</script>
+		<script type="text/javascript" src="../js/knockout.js"></script>
+		<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listview.js"></script>
+		<script>
+			
+
+		</script>
+	</body>
+</html>

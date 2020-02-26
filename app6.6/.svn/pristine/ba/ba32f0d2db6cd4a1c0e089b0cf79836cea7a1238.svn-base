@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<meta charset="UTF-8">
+	<title>待办</title>
+	<link rel="stylesheet" href="../css/font-icons.css">
+	<link rel="stylesheet" href="../css/iuapmobile.um.css">
+	<link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+	<link rel="stylesheet" href="../css/pages/main-module.css">
+	<link rel="stylesheet" href="../css/iscroll.css" />
+	<style>
+		/* xl-添加 */
+		.um-list-item-body > div:after {
+			display: block;
+			content: "";
+			clear: both;
+		}
+		.um-list-item-body > div {
+			display: flex;
+		}
+		.um-list-item-body > div > div:nth-child(1) {
+			display: inline-block;
+			/* float:left;
+			 width:0.172rem; */
+			flex: 3;
+		}
+		.um-list-item-body > div > div:nth-child(2) {
+			display: inline-block;
+			/* float:left;
+			 width:0.3893333333333333rem; */
+			flex: 5;
+			margin-right: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.um-listgroup-title:after {
+			display: block;
+			content: "";
+			clear: both;
+		}
+		.um-listgroup-title {
+			position: relative;
+		}
+		.um-listgroup-title button {
+			position: absolute;
+			top: 17%;
+			right: 2.4%;
+		}
+		.um-list-item-body {
+
+		}
+		.clearfix {
+			font-size: 0.04 rem;
+		}
+		.clearfix {
+			font-size: 14px;
+		}
+		.conditions {
+			width: 90%;
+			position: fixed;
+			left: 45%;
+			top: 50px;
+			margin-left: -40%;
+			background-color: #dedede;
+			z-index: 100;
+			border-radius: 10px;
+		}
+		#startDate, #endDate {
+			display: block;
+			width: 160px;
+			height: 45px;
+			line-height: 45px;
+			border: none;
+			outline: none;
+			text-align: right;
+			background: #fff;
+			font-size: 16px;
+		}
+		#billTypeSelect_dummy {
+			border: none;
+			padding-left: 10px;
+			color: #555;
+			font-size: 17px;
+		}
+		#billTypeSelect_dummy:disabled {
+			background: #fff;
+		}
+		#filterTree {
+			position: absolute;
+			left: 0;
+			top: 54px;
+			width: 100%;
+			background: #ccc;
+			/* border: 1px solid #000; */
+			height: 300px;
+			overflow: auto;
+			z-index: 9999;
+			/* display:none; */
+		}
+		#filterTree ul li {
+			background: transparent;
+			padding: 0;
+			line-height: 150%;
+		}
+		#filterTree ul li p {
+			padding: 5px 0;
+		}
+		#filterTree > ul > li li {
+			padding-left: 30px;
+		}
+		.sx {
+			position: fixed;
+			right: 10px;
+			top: 62px;
+			z-index: 9;
+		}
+	</style>
+	<link rel="stylesheet" href="../css/ufgov-component.css">
+	<script src="../js/summer.js" ></script>
+	<script src="../js/jquery.min.js" ></script>
+	<script src="../js/angular.js" ></script>
+	<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+	<script src="../js/iscroll.js"></script>
+	<script src="../js/util.js" ></script>
+	<script src="../js/doT.js" ></script>
+	<script src="../js/app/upComingAttch.js" ></script>
+
+</head>
+<body ng-app="myApp" ng-controller="ctrlForm">
+	<div id="arconditions" class="conditions clearfix">
+		<div class="clearfix" style="padding: 0 10px">
+			<ul class="um-list" style="margin-top: 10px;">
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								起始日期
+							</div>
+							<div class="um-list-item-right">
+								<input id="startDate" type="date" name="date" class="form-control">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								结束日期
+							</div>
+							<div class="um-list-item-right">
+								<input id="endDate" type="date" name="date" class="form-control">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner" style="position:relative;">
+							<div class="um-list-item-left pl10">
+								部门
+							</div>
+							<div class="um-list-item-right">
+								<input type="text" ng-click="filterShow = !filterShow" ng-model="filterBumen" class="form-control" id="orgName">
+							</div>
+						</div>
+						<div id="filterTree" ng-show="filterShow">
+							<ul>
+								<li data-id="{{filterWinBuMenData[0].id}}">
+									<p>
+										<span class="icon"></span><b>{{filterWinBuMenData[0].text}}</b>
+									</p>
+									<ul ng-show="filterWinBuMenData.children.length != 0">
+										<li ng-repeat="item in filterWinBuMenData[0].children | filter:filterBumen">
+											<p data-id="{{item.id}}">
+												<span class="icon"></span><b>{{item.id+item.text}}</b>
+											</p>
+											<ul ng-show="item.children.length != 0">
+												<li ng-repeat="it in item.children | filter:filterBumen">
+													<p data-id="{{it.id}}"  ng-click="fuzhi(it)">
+														<span class="icon"></span><b>{{it.id+it.text}}</b>
+													</p>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								单据类型
+							</div>
+							<div class="um-list-item-right" >
+								<!-- <input type="text"  id='billTypeSelect_dummy'/> -->
+								<select id='billTypeSelect' class="itemSelect form-control">
+									<option value="">全部</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								单据号
+							</div>
+							<div class="um-list-item-right">
+								<input type="text" class="form-control" id="billNo">
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- <li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								报销人编码
+							</div>
+							<div class="um-list-item-right">
+								<input type="text" class="form-control" id="inputorId">
+							</div>
+						</div>
+					</div>
+				</li> -->
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								报销人
+							</div>
+							<div class="um-list-item-right">
+								<input type="text" class="form-control" id="inputorName">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								金额
+							</div>
+							<div class="um-list-item-right">
+								<input type="text" style="width: 60px;" class="form-control" placeholder="最小金额" id="minMoney">
+							</div>
+								—
+							<div class="um-list-item-right">
+								<input type="text" style="width: 60px;margin-left:13px" class="form-control" placeholder="最大金额" id="maxMoney">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl10">
+								事由
+							</div>
+							<div class="um-list-item-right">
+								<!-- <textarea id="reason" style="height:80px;padding: 10px 0;" class="form-control" ></textarea>  -->
+								<input id="reason" type="text" class="form-control" >
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="btn-group" style="width: 200px;left: 50%;margin:10px;margin-left: -100px;">
+				<button type="button" class="btn btn-inline" style="width: 33%" onclick="$('#arconditions').hide()">
+					取消
+				</button>
+				<button type="button" class="btn btn-inline" style="width: 33%" ng-click="clearArSearch()">
+					重置
+				</button>
+				<button type="button" class="btn btn-inline" style="width: 33%" ng-click="initMethod(-1)">
+					确定
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="um-page Upcoming-main" id="upComing">
+		<div class="um-header" >
+			<!-- <a href="#" onclick="summer.closeWin();" class="um-back">返回</a> -->
+			<ul class="tabbar clearfix" id="tabbar">
+				<li ng-class="{active:active}" ng-click="initMethod(0)">
+					未处理
+				</li>
+				<!-- <li ng-class="{active:!active}" ng-click="initMethod(1)">
+					已处理
+				</li> -->
+			</ul>
+			<a class="um-header-right" id="msg"><img src="../img/new/news.png"> <span class="um-badge" id="msgNum" style="display:none; padding: 0px;font-size: 5px;"></span> </a>
+		</div>
+		<button id="arSearch" ng-click="showMod()" class="btn btn-inline btn-sm ti-search sx">
+					筛选
+			</button> 
+		<div class="um-content">
+			<!-- XL-添加--开始 -->
+			
+			<div ng-repeat="item in angularData1" ng-init="parentIndex">
+				<div class="exp" style="display: flex;background: #fff;padding-left: 10px;border-bottom: 1px solid #d9d9d9">
+					<!-- <label class="um-check-inline" style="margin-top: 10px" ng-show="xs">
+						<input name="um-checkbox-inline" type="checkbox" class='qx'>
+						<span ng-click='qx()' class="um-icon-checkbox um-css3-vc" style="border-radius: 0"></span>
+					</label> -->
+					<a class="um-box-vc um-listgroup-title" style="border-bottom: 0">  <span class="f15">{{item.titleName}}</span>
+				</a>
+				</div>
+				
+				<ul class="um-list um-no-active data" id ="arContent-{{parentIndex}}">
+					<li ng-repeat="it in item.rows" class="um-listview-row" class="{{$index}}">
+						<div class="um-list-item-inner" billNo="{{it.BILL_NO}}" billId="{{it.BILL_ID}}" >
+							<!-- <div class="fl" style="width: 35px" ng-show="xs">
+								<label class="um-check-inline">
+									<input name="um-checkbox-inline" type="checkbox" billId="{{it.BILL_ID}}">
+									<span ng-click='dx()' class="um-icon-checkbox um-css3-vc" style="border-radius: 0"></span>
+								</label>
+							</div> -->
+							<div class="img-myassets fl">
+								<img ng-src="{{it.imgUrl}}" title="" width="100%" height="100%" >
+							</div>
+							<div class="um-list-item-body fl" ng-click="currentLi(item.appId,it)" style="padding-right:10px;">
+								<div ng-repeat="ih in it.child" class="clearfix">
+									<div class="fl">
+										<span>{{ih.APP_NAME}}:</span>
+									</div>
+									<div class="fl">
+										<span class="f13">{{ih.APP_VALUE}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="loading fr" style="width:15%;">
+								<span>{{it.BILL_STATUS_NAME}}</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- XL-添加--结束 -->
+			<div style="text-align: center;margin-top: 80px;line-height: 80px;color: #999;display: none" id="bgBox">
+				<img src="../img/daiban.png" alt="" /><br />
+				<span>您暂无任何待办事项哦~</span>
+			</div>
+		</div>
+		<!-- <div style="width: 100%;text-align: center;background: #fff;padding: 8px 0">
+			<button ng-click='plsh()' style="width: 300px;border: 0;color:#fff;background: #00a1ea;height: 30px;border-radius: 5px" ng-show="xs">批量审核</button>
+		</div> -->
+		<!-- 审批意见 -->
+		<div id="opinionArea" style="position:absolute;width:100%;height:100%;text-align:center;margin:44px auto;z-index: -2; overflow:hidden;background-color: #999;opacity:0.95;display: none">
+			<span>审批意见 </span>
+			<textarea id="app_content" style="position: relative;height:320px;margin: 0 auto;"></textarea>
+			<div class="btn-group btn-group-justify">
+				<button type="button" ng-click='qux()' id="cancelBtn" class="btn">
+					取消
+				</button>
+				<button type="button" ng-click='qd()' id="okBtn" class="btn">
+					确定
+				</button>
+			</div>
+		</div>
+		<div class="um-footer">
+			<div class="um-footerbar">
+				<a href="#" id="toDo" class="um-footerbar-item"><div class="icon-toDo mb5"></div>
+				<div class="f12 lh1">
+					待办
+				</div> </a>
+
+				<a href="#" id="index" class="um-footerbar-item active"> <div class="icon-home mb5"></div>
+				<div class="f12 lh1">
+					应用
+				</div> </a>
+				<a href="#" id="MyInfo" class="um-footerbar-item"> <div class="icon-me mb5"></div>
+				<div class="f12 lh1">
+					我
+				</div> </a>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			$('.scroller-date').scroller('destroy').scroller({
+				preset : 'date',
+				theme : "ios7",
+				mode : "scroller",
+				display : "bottom",
+				animate : ""
+			});
+		});
+	</script>
+</body>
+</html>

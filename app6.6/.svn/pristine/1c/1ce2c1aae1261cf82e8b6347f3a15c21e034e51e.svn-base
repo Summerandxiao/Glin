@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title>全国情况</title>
+		<style>
+		.um-header {
+		    position: relative;
+		    min-height: 44px;
+		    background-color: #00a1ea;
+		    z-index: 5;
+		}
+		.um-back, .um-header-right, .um-header-left {
+		    position: absolute;
+		    top: 0;
+		    left: 10px;
+		    font-weight: 500;
+		    color: #ffffff;
+		    line-height: 44px;
+		    text-decoration: none;
+		}
+		.um-header-title, .um-header h3 {
+		    font-size: 1em;
+		    text-align: center;
+		    display: block;
+		    margin: 0;
+		    padding: 9px 0;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    pointer-events: none;
+		    color: #ffffff;
+		}
+		.um-back:before {
+		    content: "";
+		    display: inline-block;
+		    width: 14px;
+		    height: 14px;
+		    border-left: 2px solid #ffffff;
+		    border-bottom: 2px solid #ffffff;
+		    -webkit-transform: rotate(45deg);
+		    transform: rotate(45deg);
+		    margin: 0px -3px 0px 0px;
+		}
+		html, body {
+	    	margin: 0;
+	    }
+		</style>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script>
+			summerready = function() {
+				//在另一个页面（page1.html）中可以通过summer.pageParam.name获取name的值
+				var portalIp = summer.getStorage("portalIp");//potal地址
+				//var url = "http://10.4.41.31:9001/portal/integratedLogin.jsp?uid=sa&compoId=GLA_SHOW_NYB_MAP";
+				var url = "http://"+portalIp+"/portal/integratedLogin.jsp?uid=sa&compoId=GLA_SHOW_NYB_MAP";
+				if (summer.pageParam) {
+					var compoId = summer.pageParam.compoId;
+					var title = summer.pageParam.title;
+					$("#title").html(title);
+					//pageParam和openWin时的参数key相同
+					url = "http://"+portalIp+"/portal/integratedLogin.jsp?uid=sa&compoId=" + compoId;
+				}
+				document.getElementById("frame1").src=url;
+
+				$('#goback').click(function() {
+					summer.closeWin();
+				});
+			}
+		</script>
+		<script>
+			function setIframeHeight(iframe) {
+				if (iframe) {
+					if (iframe.ownerDocument) {
+						iframe.height = iframe.ownerDocument.documentElement.scrollHeight;
+					} else {
+						var iframeWin = iframe.ownerDocument || iframe.contentWindow || iframe.contentDocument.parentWindow;
+						if (iframeWin.document.body) {
+							iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+						}
+					}
+				}
+			};
+
+			//window.onload=function(){
+
+			//}
+		</script>
+	</head>
+	<body>
+		<!-- <div id="win" class="um-win" > -->
+		 <div id="header" class="um-header">
+			<a href="#" id="goback" class="um-back">返回</a>
+			<h3 id="title">农业部信息平台</h3>
+		</div> 
+		<iframe src="" frameborder="0" id="frame1" onload="setIframeHeight(this)" width="100%" height="1840"></iframe>
+		<!-- </div> -->
+	</body>
+</html>

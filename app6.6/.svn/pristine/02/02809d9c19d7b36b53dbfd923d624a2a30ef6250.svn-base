@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+        <link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+        <link rel="stylesheet" href="../css/pages/main-module.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+        <script type="text/javascript" src="../js/knockout-2.2.0.js"></script>
+        <script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+		<script src="../js/doT.js" ></script>
+		<script src="../js/app/toDoAssetsStorage.js" ></script>
+		<style>
+			.tubiao{
+				position: absolute;
+				width: 14px;
+				height: 14px;
+				background-image: url('../img/marker5.jpg');
+				background-size:cover;
+				left:-8px;
+				top:0
+			}
+			.lc:first-child .tubiao{
+				background-image: url('../img/marker6.jpg');
+			}
+			.lc:last-child .tubiao{
+				background-image: url('../img/marker4.jpg');
+			}
+			.lc{
+				border-bottom: 0!important;
+			}
+			.lc:last-child div{
+				border: 0!important;
+			}
+		</style>
+	</head>
+<body>
+<div class="um-page toDoAssetsStorage-main" id="toDoAssetsStorage">
+	<div class="um-header" >
+		<a href="#" onclick="summer.closeWin();" class="um-back">返回</a>
+		<h3>待办-资产入库</h3>
+	</div>
+	<div class="um-content">
+	
+    <div class="um-listgroup-wrap" id="listgroup">
+    	<ul class="um-listgroup">
+            <li class="um-listgroup-group">
+                <a class="um-box-vc um-listgroup-title">
+    				<span class="f15">基本信息</span>
+    		    </a>
+    			<ul class="um-list um-no-active" id='billInfo' >
+    			</ul>
+            </li>
+            <li class="um-listgroup-group">
+                <a class="um-box-vc um-listgroup-title">
+    				<span class="f15">明细信息</span>
+    		    </a>
+    			<ul class="um-list um-no-active" id="umListGroupRow" >
+    			</ul>
+            </li>
+            <li class="um-listgroup-group">
+                <a class="um-box-vc um-listgroup-title">
+    				<span class="f15">流程跟踪</span>
+    		    </a>
+    			<ul class="um-list um-no-active" id="lcgz" >
+    				<li>
+    					<div style="display: flex;justify-content: space-between;padding-right: 40px;">
+    						<span>人名</span><span>结果</span>
+    					</div>
+    					<div style="display: flex;justify-content: space-between;padding-right: 40px;">
+    						<span>意见</span><span>日期</span>
+    					</div>
+    				</li>
+    			</ul>
+            </li>
+        </ul>            
+    </div>
+
+	</div>
+	<div class="um-footer">	
+        <button class="btn btn-inline btn-sm um-btn-success" id="billApprove">审批</button>
+        <button class="btn btn-inline btn-sm um-btn-danger" id="reject">退回</button>
+	</div>
+</div>
+        <script>
+        	$(function () {           
+        		//构造控件实例
+        		var listgroup = UM.listgroup("#listgroup");	//隐藏 打开		
+        	});
+        </script>
+
+</body>

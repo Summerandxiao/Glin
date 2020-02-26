@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../css/font-icons.css">
+	<link rel="stylesheet" href="../css/iuapmobile.um.css">
+	<link rel="stylesheet" href="../css/ufgov-component.css">
+	<link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+
+	<style>
+		.um-process {
+			margin-left: 15px;
+		}
+		.um-process .um-list-item {
+			position: relative;
+			border-left: 2px dotted green;
+		}
+		.um-process .um-list-item:last-child {
+			border-left: none;
+		}
+		.um-process .um-list-item:before {
+			content: none !important;
+		}
+		.um-process .um-list-item:after {
+			content: url("../img/marker5.jpg");
+			position: absolute;
+			left: -12px;
+			top: 2px;
+			width: 14px;
+		}
+		.um-process .um-list-item:first-child:after {
+			content: url("../img/marker6.jpg");
+		}
+		.um-process .um-list-item:last-child:after {
+			content: url("../img/marker4.jpg");
+		}
+	</style>
+
+	<script src="../js/summer.js" ></script>
+	<script src="../js/jquery.min.js" ></script>
+	<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	<script type="text/javascript" src="../js/knockout-2.2.0.js"></script>
+	<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+	<script src="../js/util.js" ></script>
+	<script src="../js/doT.js" ></script>
+	<script src="../js/app/arAuditDetail.js" ></script>
+	<script src="../js/jquery.json-2.2.min.js" ></script>
+	<script type="text/javascript" src="../js/knockout.js"></script>
+</head>
+<body>
+	<div class="um-page" id="arAuditDetail">
+		<div class="um-header" >
+			<a href="#" onclick="summer.closeWin();" class="um-back">返回</a>
+			<h3>单据明细</h3>
+			<i class="ti-files um-header-right  f16" onclick="linkOtherBill();"></i>
+			<i class="ti-clip um-header-right f20" style="right:40px;transform: rotate(135deg);" onclick="openAttachFile();"></i>
+		</div>
+		<div class="um-content" style="position: relative;">
+			<!-- 审批意见 -->
+			<div id="opinionAreaNextPer" style="position:absolute;width:100%;height:100%;text-align:center;margin:0 auto;z-index: -2; overflow:hidden;background-color: #999;opacity:0.95;display: none">
+				<span>审批意见 </span>
+				<div class="btn-group btn-group-justify" style="align-items: center;background: #fff;">
+					<div class="um-list-item-left" style="width: 30%">
+						下一岗:
+					</div>
+					<!-- <input type="text"  id='billTypeSelect_dummy'/> -->
+					<select id='billTypeSelect' class="itemSelect form-control">
+						<option value="">全部</option>
+						<option value="0">0</option>
+						<option value="1">1</option>
+					</select>
+				</div>
+				<textarea id="app_contentNextPer" style="position: relative;height:200px;margin: 0 auto;font-size: 14px;"></textarea>
+				<div class="btn-group btn-group-justify">
+					<button type="button" id="cancelBtnNextPer" class="btn">
+						取消
+					</button>
+					<button type="button" id="okBtnNextPer" class="btn">
+						确定
+					</button>
+				</div>
+			</div>
+			<!-- 审批意见 -->
+			<div id="opinionArea" style="position:absolute;width:100%;height:100%;text-align:center;margin:0 auto;z-index: -2; overflow:hidden;background-color: #999;opacity:0.95;display: none">
+				<span>审批意见 </span>
+				<textarea id="app_content" style="position: relative;height:320px;margin: 0 auto;font-size: 14px;"></textarea>
+				<div class="btn-group btn-group-justify">
+					<button type="button" id="cancelBtn" class="btn">
+						取消
+					</button>
+					<button type="button" id="okBtn" class="btn">
+						确定
+					</button>
+				</div>
+			</div>
+			
+			<div class="um-listgroup-wrap" id="listgroup">
+				<ul class="um-listgroup">
+					<!-- <li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>基本信息 </span> </a>
+						<ul class="um-list um-no-active" style="padding:0 40px;">
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">单据编号: &nbsp;&nbsp; <span id="billNo" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">填报日期: &nbsp;&nbsp; <span id="inputDate" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">项目: &nbsp;&nbsp; <span id="projectName" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">事由: &nbsp;&nbsp;&nbsp;&nbsp;<span id="reason" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">金额: &nbsp;&nbsp;&nbsp;&nbsp;<span id="checkMoney" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">审核状态: &nbsp;&nbsp;<span id="statusName" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-body">
+										<h4 class="f16">备注: &nbsp;&nbsp;<span id="remark" style="color: #0085ff;"></span></h4>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li> -->
+					<li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>基本信息 </span> </a>
+						<ul class="um-list um-no-active" style="padding:0 40px;">
+							<li class="um-listgroup-row">
+							    <div class="um-list-item-inner">
+										<h4 class="f16">部门: &nbsp;&nbsp; <span id="orgName" style="color: #0085ff;"></span></h4>
+								</div>
+								<div class="um-list-item-inner">
+										<h4 class="f16">申请人: &nbsp;&nbsp; <span id="appName" style="color: #0085ff;"></span></h4>
+								</div>
+								<div class="um-list-item-inner">
+										<h4 class="f16">项目: &nbsp;&nbsp; <span id="projectName" style="color: #0085ff;"></span></h4>
+								</div>
+								<div class="um-list-item-inner">
+										<h4 class="f16">事由: &nbsp;&nbsp;&nbsp;&nbsp;<span id="reason" style="color: #0085ff;"></span></h4>
+								</div>
+								<!-- <div class="um-list-item-inner">
+										<h4 class="f16">金额: &nbsp;&nbsp;&nbsp;&nbsp;<span id="checkMoney" style="color: #0085ff;"></span></h4>
+								</div> -->								
+								<div class="um-list-item-inner">
+										<h4 class="f16">填报日期: &nbsp;&nbsp; <span id="inputDate" style="color: #0085ff;"></span></h4>
+								</div>
+								<div class="um-list-item-inner">
+										<h4 class="f16">单据编号: &nbsp;&nbsp; <span id="billNo" style="color: #0085ff;"></span></h4>
+								</div>																
+								<!-- <div class="um-list-item-inner">
+										<h4 class="f16">审核状态: &nbsp;&nbsp;<span id="statusName" style="color: #0085ff;"></span></h4>
+								</div>-->
+								<div class="um-list-item-inner">
+										<h4 class="f16">备注: &nbsp;&nbsp;<span id="remark" style="color: #0085ff;"></span></h4>
+								</div>  
+							</li>
+						</ul>
+						<ul class="um-list um-no-active" id="arBasic" style="padding:0 40px;">
+							<script type="text/x-dot-template" id="arBasic-tmpl">
+								{{ for (var i=0;i<it.length;i++ ){ }}
+								<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+								<h4 class="f16">{{=it[i].BASIC_KEY}}: 
+								<span style="color: #0085ff;">{{=it[i].BASIC_VALUE}}</span>
+								</h4>
+								</div>
+								</li>
+								{{ } }}
+							</script>
+						</ul>
+					</li>
+					<li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span id="billTypeTitle">明细 </span> </a>
+						<ul class="um-list um-no-active" id="arInfoGroupRow" style="padding:0 40px;">
+							<script type="text/x-dot-template" id="arInfo-tmpl">
+								{{ for (var i=0;i<it.length;i++ ){ }}
+								<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+								<div class="um-list-item-body">
+								{{ for (var j=0;j<it[i].length;j++ ){ }}
+								<h4 class="f16">{{=it[i][j].EXPENSE_NAME}}: &nbsp;&nbsp;<span style="color: #0085ff;">{{=it[i][j].MONEY}}</span></h4>
+								{{ } }}
+								</h4>
+								</div>
+								</div>
+								</li>
+								{{ } }}
+							</script>
+						</ul>
+					</li>
+					<!-- <li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>费用项 </span> </a>
+						<ul class="um-list um-no-active" id="umListGroupRow" style="padding:0 40px;">
+							<script type="text/x-dot-template" id="listgroup-tmpl">
+								{{ for (var i=0;i<it.length;i++ ){ }}
+								<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+								<div class="um-list-item-body">
+								<h4 class="f16">{{=it[i].EXPENSE_NAME}}:
+								<span style="color: #0085ff;">{{=it[i].MONEY}}</span>
+								</h4>
+								</div>
+								</div>
+								</li>
+								{{ } }}
+							</script>
+						</ul>
+					</li> -->
+					<li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>预算信息 </span> </a>
+						<ul class="um-list um-no-active" id="glinfoRow" style="padding:0 40px;">
+							<script type="text/x-dot-template" id="glinfo-tmpl">
+								{{ for (var i=0;i<it.length;i++ ){ }}
+								<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+								<div class="um-list-item-body">
+								{{ for (var j=0;j<it[i].length;j++ ){ }}
+								<h4 class="f16">{{=it[i][j].GL_INFO_NAME}}: &nbsp;&nbsp;<span style="color: #0085ff;">{{=it[i][j].GL_INFO_VALUE}}</span></h4>
+								{{ } }}
+								</h4>
+								</div>
+								</div>
+								</li>
+								{{ } }}
+							</script>
+						</ul>
+					</li>
+					<li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>流程跟踪 </span> </a>
+						<ul class="um-list um-no-active" style="padding:0 25px;">
+							<li class="um-listgroup-row">
+								<div class="um-list" style="padding-left: 0">
+									<div class="um-process" data-bind="foreach: data">
+										<a href="#" class="um-list-item">
+										<div class="um-list-item-inner">
+											<div class="um-list-item-body ml15" id="arProcess">
+												<p class="f14">
+													审批人：<span data-bind="text:executorName" class="fb"></span>
+													<span data-bind="text: nodeName" class="ml10 um-green"></span>
+													<span data-bind="text: actionName" class="ml10 um-blue"></span>
+												</p>
+												<p class="f14 mt5">
+													意&nbsp;&nbsp;&nbsp;&nbsp;见：<span data-bind="text:description" class="um-blue"></span>
+												</p>
+												<p class="um-gray um-text-overflow2 f12 mt5" data-bind="text: executeTime"></p>
+											</div>
+										</div> </a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="um-footer" id="approveBtns">
+			<div class="btn-group btn-group-justify">
+				<button id="approve" type="button" class="btn btn-inline" style="font-size:16px;">
+					<!-- <span class="ti-check"></span> --> 审批通过
+				</button>
+				<button id="retreat" type="button" class="btn btn-inline" style="font-size:16px;">
+					<!-- <span class="ti-close"></span> --> 退回上一岗
+				</button>
+				<button id="backInput" type="button" class="btn btn-inline" style="font-size:16px;">
+					<!-- <span class="ti-close"></span> --> 退回制单人
+				</button>
+			</div>
+			<div class="btn-group btn-group-justify">
+				<button id="callback" type="button" class="btn btn-inline" style="font-size:16px;">
+					<span class="ti-back-left"></span> 收回
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(function() {
+			//构造控件实例
+			var listgroup = UM.listgroup("#listgroup");
+			//隐藏 打开
+		});
+	</script>
+</body>

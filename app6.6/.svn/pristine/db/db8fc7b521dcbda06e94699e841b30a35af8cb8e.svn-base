@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../css/font-icons.css">
+	<link rel="stylesheet" href="../css/iuapmobile.um.css">
+	<link rel="stylesheet" href="../css/ufgov-component.css">
+	<link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+	<script src="../js/summer.js" ></script>
+	<script src="../js/jquery.min.js" ></script>
+	<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	<script type="text/javascript" src="../js/knockout-2.2.0.js"></script>
+	<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+	<script src="../js/util.js" ></script>
+	<script src="../js/doT.js" ></script>
+	<script src="../js/jquery.json-2.2.min.js" ></script>
+	<script type="text/javascript" src="../js/knockout.js"></script>
+</head>
+<body>
+
+<div class="um-check-group um-check-group-left">
+    <label class="um-check-group-item">
+        <input name="um-checkbox" type="checkbox" checked value="">
+        复选框1 <span class="um-icon-checkbox um-css3-vc"></span>
+    </label>
+    <label class="um-check-group-item">
+        <input name="um-checkbox" type="checkbox" checked value="">
+        复选框2 <span class="um-icon-checkbox um-css3-vc"></span>
+    </label>
+</div>
+
+
+<script>
+		var id = 20170621150949410;
+		var id1 = id;
+		console.log(id1);
+	/*	
+	//请款单接口
+	var paramStrselectApplyListByConditionList4Mobile = "CO_CODE=043001&BILL_TYPE=EXP_OUTLAY&ND=2019&APP_ID=dongsy";
+	//差旅费报销单请款单接口
+	//var paramStrselectApplyListByConditionList4Mobile = "CO_CODE=043001&BILL_TYPE=EXP_TRIP&ND=2019&APP_ID=dongsy";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/selectApplyListByConditionList4Mobile?" + paramStrselectApplyListByConditionList4Mobile,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});	
+	
+	
+	/**
+	//获取单据要素相关接口
+	var paramStr = "CO_CODE=043001&BILL_TYPE=EXP_OUTLAY&ND=2019";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getArInfoList?" + paramStr,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	
+	//获取借款单接口
+	var paramStrgetUnClearLoanList4Mobile = "CO_CODE=043001&INPUTOR_ID=dongsy&ND=2019";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getUnClearLoanList4Mobile?" + paramStrgetUnClearLoanList4Mobile,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+
+	
+	//卡信息
+	var paramStrselectCardInfoList = "CO_CODE=043001&USER_NAME=董鼠应&ND=2019";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/selectCardInfoList?" + paramStrselectCardInfoList,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	
+	var urlParamgetNextNodeIs_view = "BILL_ID=BFA78E01FFFFFFFF8FFEFCF500000001&USER_ID=lisz&NODESETTING_TYPE=IS_NEED_EXETOR";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getNextNodeIs_view?" + urlParamgetNextNodeIs_view,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	
+	//转账人信息
+	var paramStrgetBkCurrentAccList = "CO_CODE=043001";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getBkCurrentAcc?" + paramStrgetBkCurrentAccList,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	
+	//得到报销单信息
+	var paramgetBillDetailByBillId = "BILL_NO=BFA78E01FFFFFFFF9F8E60B100000005";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getBillDetailByBillId?" + paramgetBillDetailByBillId,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	//删除报销单
+	var paramgetBillDetailByBillId = "CO_CODE=043001&BILL_ID=BFA78E01FFFFFFFF9F8E60B100000005";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/deleteArBillByBillId?" + paramgetBillDetailByBillId,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	//经费报销单请款单接口
+	var paramStrselectApplyListByConditionList4Mobile = "CO_CODE=043001&BILL_TYPE=EXP_OUTLAY&ND=2019&APP_ID=dongsy";
+	//差旅费报销单请款单接口
+	//var paramStrselectApplyListByConditionList4Mobile = "CO_CODE=043001&BILL_TYPE=EXP_TRIP&ND=2019&APP_ID=dongsy";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/selectApplyListByConditionList4Mobile?" + paramStrselectApplyListByConditionList4Mobile,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+				//var result = [] ;
+				var html = ''
+				for (var i = 0; i < data.rows.length; i++) {
+					console.log(data.rows[i].avaliableMoney);
+				    if(0 != data.rows[i].avaliableMoney){
+				    	//result.push(data.rows[i]);
+						//html += `<option value="${data.rows[i].billId}">${data.rows[i].billNo}(${data.rows[i].reason})</option>`
+				    }
+				}
+				//console.log(result);
+
+			} else {
+				alert(data.rows);
+			}
+		}
+	});	
+	**/
+	//得到报销单信息
+	var paramgetBillDetailByBillId = "BILL_NO=BFA78E01FFFFFFFFEA0C1D8100000021";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getBillDetailByBillId_common?" + paramgetBillDetailByBillId,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				//console.log(data);
+				var arbillJson = $.parseJSON(userData.ArBill);
+				//console.log(arbillJson.billId);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	
+	//经费报销单请款单接口
+	var paramStrselectApplyListByConditionList4Mobile = "CO_CODE=043001&BILL_TYPE=EXP_OUTLAY&ND=2019&APP_ID=dongsy";
+	//差旅费报销单请款单接口
+	//var paramStrselectApplyListByConditionList4Mobile = "CO_CODE=043001&BILL_TYPE=EXP_TRIP&ND=2019&APP_ID=dongsy";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/selectApplyListByConditionList4Mobile_common?" + paramStrselectApplyListByConditionList4Mobile,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+
+			} else {
+				alert(data.rows);
+			}
+		}
+	});	
+	//转账人信息
+	var paramStrgetBkCurrentAccList = "CO_CODE=043001";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/getBkCurrentAcc_common?" + paramStrgetBkCurrentAccList,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+	//卡信息
+	var paramStrselectCardInfoList = "CO_CODE=043001&USER_NAME=董鼠应&ND=2019";
+	$.ajax({
+		type : "get",
+		async : false,
+		url : "http://127.0.0.1:8088/FS/services/billService/selectCardInfoList_common?" + paramStrselectCardInfoList,
+		error : function(data) {
+			console.log(data);
+		},
+		success : function(data) {
+			if (data.resultCode == "1") {
+				var userData = data.rows;
+				console.log(data);
+				console.log(userData);
+			} else {
+				alert(data.rows);
+			}
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>iSignatureHTML5签章(移动端)</title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/pages/index.css" />
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		
+		<script type="text/javascript" src="../js/kinggrid/zepto.min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/zepto.fx.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/jquery-1.8.3.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="../css/kinggrid/ui-dialog.css"><!-- 弹出框css -->
+		<link rel="stylesheet" type="text/css" href="../css/kinggrid/kinggrid.plus.css"><!-- 核心css -->
+		<link rel="stylesheet" type="text/css" href="../css/kinggrid/kinggrid.plus.mobile.css"><!-- 手机端css -->
+		
+		<!-- ************************** html签章核心JS start*****************************-->
+		<script type="text/javascript" src="../js/kinggrid/kinggrid.min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/kinggrid.plus.min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/dialog-min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/signature.min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/password.min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/signature.mobile.min.js"></script>
+		<script type="text/javascript" src="../js/kinggrid/signature_pad.min.js"></script>
+		<!-- ************************** html签章核心JS end ***************************** -->
+		
+		<script type="text/javascript" src="../js/kinggrid/jquery.qrcode.min.js"></script><!-- 二维码功能 -->
+		<script type="text/javascript" src="../js/kinggrid/qrcode.min.js"></script><!-- 二维码功能 -->
+		<script type="text/javascript" src="../js/kinggrid/jsQR.js"></script><!-- 二维码功能 -->
+		
+		<script type="text/javascript" src="../js/kinggrid/html2canvas.min.js"></script><!-- 二维码功能 -->
+		<style type="text/css">
+		@media print{
+		#in{ display:none}
+		}
+		#Page input{border:0}
+		</style>
+		<script type="text/javascript">
+			var userInfo = JSON.parse(summer.getStorage('userInfo_local'));
+			if (userInfo) {//有数据
+				//coCode = userInfo.coCode;
+			} else {
+				summer.closeToWin({
+					id : 'login',
+					url : 'html/login.html'
+				});
+			}
+			var useridr = userInfo.userId;//zhutao
+			var bdata = summer.getStorage("bdata");
+			var signBillId=bdata["BILL_ID"];//BFA78E01000000006D00B1AC00000001
+			var billno = bdata["BILL_NO"];//NO2019110006
+			console.log("useridr:"+useridr+";signBillId:"+signBillId+";billno:"+billno);
+			console.log("JPushPlugin:Device ready!");
+			if(!window['console']){//IE8，没有改对象，创建一个对象
+				window['console'] = {log: function(){}}
+			}
+			//var iframeDialog = true;
+			function delCB(signatureid, signatureData) {
+				for (var key in Signature.list) {
+					if (signatureid == key && Signature.list[signatureid].keysn == signatureData.keysn) {
+						var signatureCreator = Signature.create();
+						signatureCreator.removeSignature(signatureData.documentid, signatureid);
+						break;
+					}
+				}
+				return true;
+			}
+			Signature.init({//初始化属性
+			    //keysn:'0741170010110516',
+			    //usercode:useridr,//获取签章服务器用户编码的印章	
+			    keysn:'8053B4969C78D5AC',//密钥
+			    //keysn:'test001',//密钥
+			    delCallBack: delCB,
+			    //icon_remove : false,//撤销签章按钮隐藏显示，缺省显示 false不显示。
+			    //icon_sign : false, //证书信息按钮隐藏显示，缺省显示 false不显示。
+			    imgtag: 0, //签章类型：0：无; 1:公章; 2:私章; 3:法人章; 4:法人签名; 5:手写签名
+				certType : 'server',//设置证书在签章服务器
+				sealType : 'server',//设置印章从签章服务器取
+				//serverUrl : 'http://192.168.142.1:8080/iSignatureHTML5',
+				serverUrl : 'http://23.99.2.25:8080/iSignatureHTML5',
+				//documentid:'KG2016093001',//设置文档ID
+				documentid:useridr+signBillId,//设置文档ID
+				//documentname:'测试文档KG2016093001',//设置文档名称
+				documentname:useridr+billno,//设置文档名称
+				//quickClose: false,//
+			    //verifyResType : 'click touchend',//验证响应方式，默认click。避免在特殊情况下（如IOS、webview）环境下第一次点击不响应的问题
+				pw_timeout:'s1800' //s：秒；h:小时；d:天
+			});
+			
+			window.onload = function(){
+				var signs = [{
+					extra : {
+						icon_move : function() {
+							//alert('禁止移动');
+							return false;
+						}
+					},
+					signatureid : '147683973060447728',
+					signatureData : 'eyJ0aW1lc3RhbXAiOnsidGltZSI6MTU1NzEyMTg4ODAwMCwic2lnbnRpbWUiOiIyMDE5LzUvNiDkuIvljYgxOjUxOjI4KOacjeWKoeWZqOaXtumXtCkifSwiYXBwbmFtZSI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDYuMTsgV09XNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS82NS4wLjMzMjUuMTgxIFNhZmFyaS81MzcuMzYiLCJkb2N1bWVudGlkIjoiS0cyMDE2MDkzMDAxIiwiZG9jdW1lbnRuYW1lIjoi5rWL6K+V5paH5qGjS0cyMDE2MDkzMDAxIiwibW92ZWFibGUiOnRydWUsImtleXNuIjoiMEU0RTQ1MTIwMjI3MTIxNCIsIm9yZ25hbWUiOiLph5HmoLznp5HmioDnlLXlrZDnrb7nq6DmtYvor5Xnu4QiLCJ1c2VyY29kZSI6IjBFNEU0NTEyMDIyNzEyMSIsInVzZXJuYW1lIjoiMEU0RTQ1MTIwMjI3MTIxNCIsInNlYWwiOnsic2lnbm5hbWUiOiJkZCIsImltZ2V4dCI6Ii5wbmciLCJpbWdkYXRhIjoiaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUpjQUFBQ1hDQVlBQUFBWW44bDVBQUFRU1VsRVFWUjQydTFkeVpXc09nelZqNGNsc1pBQ2NaQkdwVUFzYkluSHY2dGZxVm9ZZVpZSHdBdk9HN3FMQXZ0YXVwcEJLZlZmdi9xVjQ0TEhMOEsrcWQ5cmVTazF6VC9YcUJUOFhNUFAwa0RBTll6L1B2dSt4L3I2ZDg4T3JvY0JhZjJBNkEwR2dETFg4RXpRd2UzQjlON1VVaUFLdlpiNTFtQzdIN2pXN2FQYTRGclhXN3JkREdqUUFlWGdUejdYKy9jbDFleDBENGwyWVhBbHFydzNHTjVxYWQzeWJPU3UvbkdzSlpIZnZkK3hnNnR4SHZXV1JMK0VXcW5xQmtVTTJDNElNcmlVNmd2ZGxOYlZTOHhCdVJBM2cwdElxaUFMN0hWZHJoSUN0RGZJT3JnS0xQWjBNMHNyUkVvM3JDN2JCTmN5MzE5S1NSK3d0YjIxZ0V1cXdMVnhLWlVEOUcvd2VQRXhwVHE0WWs1bzd0T0pGbVdxaXlUbnMvcEk5YVVOVmRrR3VHcUQ2aTBKNmFhbFNCN2tTdm9HNC8xTGdhd0J3Zy9WMVVmcEJkcTNzMk1USGFySllON080TVMvNXpnb2J4VTR0RXNob0ZrMUtMMG95Rm0rR1FyYS9TY0J5WUtINWExZUYrSXNSWEJSaTFiU3VuWHhzVXBrSDVvajdiVXNRQW11Z3M4L2pDUzFSM3UzMy9mLzVJdVZQckMzQnRlNk5mWHlvbExyNjNQYXp2ZkNuMDFhZ0R0TFRMT2ROUzRITHB2b3JraytNWnNpeFlUSGQ5UC92aFBMRVROZGRjNVV3MGdxcENhaE9yK3E3ZnhEU1pJaVJlam44VjNwbnptc3hWU0RxY0M2UTFWZ3RlTHc1SjRGOCtwOXdFazN5cVQ2cHJuT085dlVaR2FBUVJHVnd3S3JFUzg3THY1dXNCNWpOb0RHL2RBcXhlVERGTGNEOSt5cFhEZWpBUVhaMVUwc3Y4TFBUOXJ2b3hVbVNZWVJDTCtxNi9POUEvd1ZWY1FBQzU5VnlpcWN4clBrQ3dXc0xmQi9HWENaVkdFb2NlZlVKejJGU1k1VUpta3Z0VG9IQVVCOWFGSldJVjFUL1FCS0VQME1LbEllWE1zc1p4R2k1WVduVStjUHNkd0RIYW43WjBGak5za2thWDMvMzdlZTBnUU9hbjFMV1pMQ2ptc29JckZTdUliSitvb0ZtTzFBcFBqdWFKRUc1cGNoaUdONDVzUllzUWlvWFVCNm0yaUxvQVNUQTVlSk5DYjdzRGJlNllqZko4RVg4RjZoSnhjM2lHNEl4aTRuTFZZWlNxQnBycjBlbnp4OS8vYkg4U1FrV0Z2ZzJtVGREZnVtVHZGQVRnS21XSFNwNFI4c3R0RC9qbG1rK3J0UXl6bjBlMHlxaTVNK1VpcXlHWEJKU3l4Nkg5d2M5RWZSRFpWY2pKUm5YcldRank1ZEVFeExoR1RCOTUyb2xOek9sbDdLT3JEN2w3Nm1rTTNsSUFWWUc1bWxDNXVxZnFkRVVxK0RDdzlGN0hvYzFLb215VTNxTlVXQ1o4alBUd09YS2J3ZzRTRFZMVVY5Y2FsNlFFS2U0aEEwZWVwajFDbyszOWNydjhWWnRyK1pzZHQ1SFlaUjNyb3pjZVlFTndxSXEwTkpmd2x1RG5JYXlyOTAzcEpxVHBzODlhR08ySFU3U3RjbHdjTlB2ZkltbW9CckpCSDhOMW43eGNGVnl0UExrVm5PZDdSdnh6NFBNYmxac1llREFoTjdSNnlSa2hEVk0yZUpVbmZNb0xra3BFck1PSm9UQ1Z4b2ltZTUvRWdtVHZaZGRDM3owMGVLWWFCNUdPUERVNWhTWStKZ3dabXM4OWxhdGtVb01IU1ZNMTBuQXJ3UXpZVktaamh3TGdlZEkreWFyMmZkL0ovclFKUTlGL0ZYVlRPOUh4Q3NkRE80dEdyNk0yNVRXVFc1bVdsQmlkeTc3T0NDc1U0cGsvNkNKbkxQVnVKNHFMcDlremtrSzhZdFBUZm5rUFAxYVpReVdWUmlxZldlMHRWakdMall1R0hCTEZJOXpPSUtnMGlFU1NRcmpseFNRbTEyS1ZZNmF6Y3gvZ2pKWDFZeUwydGhNZ1Ayelh5cU1xZVVaRkg5bUE3OWRXZU1ZcTZCRTZoZDkwcFVqNUJFNGwwa1QwZjVRWlc5bEpKeXJpNGFKenNzeWdXQXhhM1BnWXRsNEZtK0lFa2c5NUNGNEwxNWcwbFBjejZjNkVvYjVyN0QyRnhaZTd6ckJRL2dsdWEvTTYxVmlzYnlrS0FRTGJWV3oveHkvV0VrSEsybXorZFFIMFdMUllCM0dxT1ZHUE5PZXJacXpNR2J4aWpwQmQ1V1ZLeFpxcnNNcUNURFdqN0pIbE5YYmF1MHZKUlZJc2NjR0FTb0hpcDcvNytldlJIRnQxUEJKUlZ2bXBoZURQUkUzTDNQbHMvNm1LUkpURExqd2poZ2JlQnc3U3NYUjNhQUU4S2xsZ1B0cHFJRzZrSC9jaU10ZS9QcEFKTjJmL3hLcU5kZm9RbDE3dEsvKzVhOUJVb3ZFSlZhcHQvVEMwOFhMZjk3ZlYyK0xYWjFJMEFuOElmeXRoZlBkK21COTFsN3pzOXBFUW9RbklJUndyRm83d1FkY1BxL3AvazVyU2h6T1plNURhZEJmajBrUnYxcEdiZ1hCRmtJSVZhZW5yNnhhRlhKbkJSMHVqajZKRERqWnV1VjMxUTdUS1BaeTUrNnJ4YkxFeVN0QXk5LzEwNGFwSEg5NGswaU9pVS82bzU4NnB2SHBVbWVkVHQzdVVZQVVlbjJ6VzRsNlVLK0VzeVRoNE8zMHpUV0lZbWZwUkpNNXdpRElSZyt6ZWNoQUU4SDFnRWdMMlhkZE4zRGp3ZGNqNVNFcHRWdys4Vm9GZkQrc0VTbzV1QTlOK1NBdXdaRXJRK1dYTi9jTm0wekZ5WmpRcmZPZFFGQnBWdm9Ibk5lQkFhWTRDWDJvdDBFVE5Xd3owbFp0K3Q2MlhQN3duVGZFbllxMUxrVVY0NUhQZjY2R3BTb2VYU0Npek0zcFhrTzE2T0JEWVUwNlB1cUN2aU5IOTIza056OWc5VkkvRmVEc01PYUkvWWFad092Wk1BY3ZHSFE2dTMwRTdsdTdYR3M5ZFdHTDQ1THhUa1lQWWJzVnNudVFLeHFIRjNnS3BEQ2JNc3ExY1Y0U3h4TG9tRkpqcGdrTFJUK05sblo4a2MvSEZnQnAwb3N1Yms2dVh3L1QwdXVoOVlhMTVuQ2JxWDYwSE9xa1VoR2NEcE9hMWxFMUV4dXlWSnIxV0pGdDgweWw0dlZjcXFScUdRb3JoSkRIN2laelJ2YkhrTlhLem5Ta2lsaEIxZnBoNlhlNUZvTmFuMFhzU25lTmRlVHFCYWZLRmdEMWQzUFpCYi9lMk1OZzJzQm5vdm1uTURGa2JNT0xQUGF0RElHK051QVdLbG1wUHBIZ29KUnZMa1dMNVF3VHVOMUFkdHlILzBXSE1PR1VCQzRmaUdvQ1FrT1R0SWZ0cFhpVkNtVmVDZmFNSTFtUVVKOWFDRzg2M00vTTdoYy9oRk1vOFhzQmR2QWIvVEJ3QVVIbmRzbWdBeU5oYWRpTW5wdGhScUQ1d0V5VUNvUUlmTllKVXh6aEpiWGVVb1hKKzBRZUsyQ3pqWEZ0dVZLSWpxb2ROM01hMng2aitYbDU4UTJrSG93ZXVaanU5SFp4Q2ltMU5na1hVdUZHajREM1Z1V3hPdkxmcmhwbDJoalV4VVBLV2dRVGhCdEtickdwSnlTQU1lLzZMenBBVkYxWGtFbHR1eFF0WUdBRzQ1ZzIyOHZRY01MR1FoT0R1U2FnUnowTjIySU8vK1ZONjJPVTNKRmxTalU5VGhyTlpBdnFaZnVLZkdERTNDNThMMmJnUnhLeU5ReDR3RXJmRXVCQ3kzVzc2VXMvN2I4ekFkYzMvZWxuMVdPN3pMOFhGTGF1dW9ZVHpsMWdYek13eDBCVVptbk81TzB0c3pxMUVCdFlIS09wRnNzaHJiV2JQR1NzanIxUGJTcWMySk0yVndPc2VENmVTY0k5bkdaR3JGWjNSQmFPbTBwRTk0MXRiNkZTekllZUNMV0JFQ2NaTUwvMnkzdUNOOTZVZ1lIRUIyd1JzdVA5Yk9NN3BNNnpYOG5SbEl0eEhLbnEwb3JLZFZwNG83Zkh2K3pPMkxqQjY2WGlpS09xOVlMaXJhOXhvS0F4VkxoazNQQmw0YWtXSzIrWWJaSWljbXRzbTUrMHBXeHJNRVdlQXp1azRVRkF5YVJhZUp5Nk9uUDdZWll0L3JBcXVJWEl6bjNwZ09jZXNDOXdSV2JXbXdOR1pFcTRkcVpuRDcrSyttcmhqK001c1c1RExWVXpiRklTNjVvRGpUV0IxaEpzdDlDRXQrYVdXS3lrb3ZOZzM1UVZYTnVZTlVPWDVWU3c5blY0bFd2WmI0UGFXK0lhdFJSaTFmTDI3b0VhVy92Z0hiSkpVMzBuOW9ka2VkY3FpK1FOUC9xNExKSUxrbHd1VlFzYldSV0U5U1MxdU1UYVFXVDZod1h1STdwMS9sdDJZTlR2Y1p6NmtwTmNFa0d1bXVHZHBhWHU3ZC9EcmZFNEJ1NEhvVEJwYmYyUVRBaHQ1UHN2dEtLUzZJRjlXU1NvRG5hSkRBQ0tqeFpNRWJWWUtEYTlNTDdWamU5T1VmY3NaWnFwT3RzTTg2a0s5b1pvekErelprK3BNbW5BMXJYWnB1RW91MnNXMVdKT05xa1phdFJCNDJONWd5ampPdGt0NlU1VzBxeW8wZ3d6Zk9pSjVpVFVGZ0VVTE5Jd3p2Yk5QQXp0YmpqYVZMY2FKYW1FdjMvV1hCaGdRWmJ2ZUZSSGs0NzNDM3pYeHRGbTRyZzJsYnJreDVhc2hKdC9OUGxGNnNWVStRT3A4MGl4OE1keTdVWFcybVoydElXaHAzSzhEcFBPcVdiOFUyTlZxb3BFenJVbVd3RFp3MnIwUlo2c3ZVWVN4bTB1dGlLWW1OOFhmcHNIMWUxTHkwMU05NVRxYWdKWFMzMGdXaEZOWEpheHpTcGhBUFNOSVpuVWpqTCtVTWJrWmhPS3BiM0w2U0tHdHRaRDJTaXcwNnFzNmU1VG1ZR0ozVlNpUGhVcWUzblFxWnA0RHNNanRuWU5nRFJkZkVwNlhjMklnbXhHRkc4VHVOZkF4THNYNG8zUjVEUkZ0YVlBcklZNXNlVXRoUnpBRUVIYkNuVmVPS3duMzFSQ2VPTGZkZkUyVUpKb3NFWkFuVFhxbjI0b28yV0hLYzVBREE4WkZBcFIrWS8reXJidHZMYnFucFVSa3VxbGNZalM0RVpqOVBjWm00WEZzZ09vOTJWTkhsMDA1NTgybGJHTk56RmVDRmFoUnh2bzNPc0Q4T2lSbVh0RFZXRStCWUFPUExOVm5QV1VIMWlsYzlLS3JOOURwOTN3OTNRTU5EQURDN2FOeG5BN051emgwamxxZ0tTNUpkQnJjSTUvV2w3aU1GUWFJRldvd1JucWUwSHUyUE9tblJmQ2tNaENEaGI0Y1JJb2VTSDMzcnkzVldUSzhuUDY4eitjWUpUSFZzdURXTUgyQlZxRGdiWFlLbmE4MzlDUXhwZHhkWE52ckRnSlBNd3o0UzIxWnlwM0ljdUdOb2tORENXeFd1WVp3M1Z1TDZPL1RsMVFDMnZ6cjljbTF4YUFFU1BJZWFzeHB5eFBnb2tHaW82ZE1vQjFlUzh3eFphRWt4ejJjUG5NU1hXREs2YzBvdkdHTG52T2dTN05XQXZMOVVKUHBicHF5UFAyUXVPN1BQRUJnVGxPVWs4dE8yQnZ0bXIyL0ZFMEdCd1NFRDFMaFlaNVo4VVJCelh5cTFwcHRtN2RRR0VKY0VKU0F4WGpTSW54ZlIvTC9NektzTjF5MTBSaVdXem9GMjl1S1NsbHNIUkRjRTNTazJMb1NtMXVnWElTVW5USVBXbldJK21kWGRsWFhDSE5EV3RpWE5UV1F3SkNFK21TendOcHJuSTlEUXVwSzdPVmVENUtJdHdObWVOc2hWQTI1OVVrU2pFQ0d5NkF0STM5TDRmWnFyQ3lITzZZWHh1YVh4STdwbWUrNDcvcG51RWh6ZkZFYzBKR29mYWRZT0w3U002cG9GTGwzNDJjdHBEUDd4YUNzbUxsM0MwUmdnWmlMNXhqRVQ1NXMvckJIRGp4WDdMMDh4YWFKaXlHZ0JHMTVGVG02YSs5Q0hacGg3MENLSkZZb3pmeTFSVFp5cm03SmRibTFCVmg3VU1xK2FBdGptdFF6TlVBajRMU1dJeFJJZnJvMXRNTTJoYUhZL1hldHNpazdUUlFiRE1ZYndaeHVnS0tVald1OTZTenpMS2hZNFFvYTJXZXFKZ21QWE54ZjVpSzNwc3JUdzludzJTM1FnK1g4YWxRM2NyTUkrYVJJdVJzN1pEaVgxc0ZYb1V1R0xKL1RRZWc5SDl5cHNmYndzTHBRaVNRRTRNSXY2T25xblF0ajhzTkp0azMwUzZWSU9ZejZOYmVtMzZ3MElKdkdsL0kveGtvQ1NkYWxOUFJXN1NIeGF5THlhaksrSVo0c0VsSkRyN1ZjaVM5Tm1YUlpieWdKajQ3ZnlyNGNSQ0QyQ1poRVZDRmdXSUVjZ09zUHZWSUNZNnNTSGJnM1dDZjIxZ0NRZ0lFQk85SFdBZFdGbkFaZk4vZFlCZEl6YVp3U2lEYk5iSjAyZmhORzlKanRublJFSlc4N2RuT0Z4TFlna0xBU2g2S3JxS2JCZFlHUnpnVUp3b2RnbldIckF5SFhxNDA4djBLK2F3NXd2WlFUWGkyQjJ0dHdaV0dYRFpKRmlQUlpZTFhsZElNb0J5cHUvYzVtVFYyMHFyc2ZyQUsyam1KSFdBNVZlREV1MFltZ1dYQzJCUGFDNVNzbkZKWlFvQzFSWmlHdHVjRVgzMUFvMkdramloNnFLNGhtSDJ6TmIwUTFveDlBYlZGMmZmMmgxR2ZtVVYrTXRoNjFyaWNBa1NXb0dNWHRLOTBGZ1VCQzY1Y0UvMGpiMFAxdUF6NkwyZHRZRTJlY1NzdkNUWkV5ekxDNjhGWE5aZmMyZml2Mi9LRzFRTkp3TEFMVGdHSmJGWEp2KzJBWnNYNUtCd0cxL09GZFdtYWQ3M2hYalZQY0NWQXJKYUE5cE56ejlGQUFxdVo4akFwWG5KQUhGQUt6VnJHNmZkUm9IcCt0WXgzTWYzTThadjRJRzMwZG5jbjdibGkrVlAvTDFCNlB2eEdXN2cwNE43bWU3YWhMT3JYVGVMUk1DdGZVVExTMWFpU0Y5WHQyNGZEUzVPZmRZQ0hFNENlVkIwNFZuZ01uV0FXVDZrZXhybCtGcG9yL2NiWHY4REVoUE82ZFpQb3ZVQUFBQUFTVVZPUks1Q1lJST0iLCJ3aWR0aCI6IjQuMDAiLCJpbWd0YWciOiIyIiwic2lnbnNuIjoiSTh5YkVWaWgySnJ3bENLRlRYYVJNQjFRNStVdG5TTno3YzkvR3ZtTFlmRDZPdWczQWQwSHhwV2VqUD1zcVo0b2siLCJoZWlnaHQiOiI0LjAwIn0sInByb3RlY3RlZERhdGEiOlt7ImZpZWxkIjoiaXRlbTEiLCJkZXNjIjoi5L+d5oqk6aG5MSIsInZhbHVlIjoi5ZCM5Yib6L2v5Lu25YWs5Y+4In0seyJmaWVsZCI6Iml0ZW0yIiwiZGVzYyI6IuS/neaKpOmhuTIiLCJ2YWx1ZSI6IumHkeagvOenkeaKgOaciemZkOWFrOWPuCJ9LHsiZmllbGQiOiJpdGVtMyIsImRlc2MiOiLkv53miqTpobkzIiwidmFsdWUiOiLmoLnmja7jgIrlkIjlkIzms5XjgIvlj4rmnInlhbPop4TlrprvvIznu4/lj4zmlrnljY/llYbvvIzovr7miJDkuIDoh7TvvIznrb7orqLmnKzlkIjlkIzjgIJcclxu5LiA44CB55Sy5pa55aeU5omY5LmZ5pa55Yi25L2c5peg57q45YyW5Yqe5YWs57O75YiX5Lqn5ZOB44CCXHJcbuS6jOOAgeWFt+S9k+inhOagvOWei+WPt+OAgeaVsOmHj+OAgeWNleS7t+WPiuS7t+agvOivpuingemZhOWQjua4heWNleOAglxyXG7kuInjgIHkuqTotKfml7bpl7TvvJo2MOW3peS9nOaXpVxyXG7lm5vjgIHpqozmlLbmnJ/pmZDvvJoyMOW3peS9nOaXpeOAglxyXG7kupTjgIHlj4zmlrnlnKjlkIjlkIzkuIrnlLXlrZDnrb7lrZfnm5bnq6DlkI7nq4vljbPnlJ/mlYjjgIIifV0sInNlYWxUeXBlIjoic2VydmVyIiwidmVyIjp7Im5hbWUiOiIxLjAuMjAiLCJjb2RlIjoxMDB9LCJkYXRlVGltZSI6eyJmb250RGF0ZSI6eyJmb250Rm9ybWF0IjoieXl5eS9NTS9kZCIsImZvbnRGYW1pbHkiOiLmpbfkvZMiLCJmb250U2l6ZSI6MjAsImZvbnRDb2xvciI6IiMwMDAiLCJmb250UG9zaXRpb24iOlsicmlnaHQiLCJ0b3AiLCJvdXRzaWRlIiwiIiwiYmVsb3ciXX19LCJwb3NpdGlvbiI6eyJwb3MwIjp7fX0sInRpbWVpZCI6MTU1NzEyMTg5NDQyNX0='
+				}];
+				/*Signature.loadSignatures(signs);
+				Signature.bind({
+					remove : function(fn) {//签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,
+						console.log('获取删除的签章ID：' + this.getSignatureid());
+						fn(true);//保存成功后必须回调fn(true/false)传入true/false分别表示保存成功和失败
+			
+					},
+					update : function(fn) {//签章数据有变动时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,执行后必须回调fn(true/false)，传入true/false分别表示保存成功和失败
+						console.log('获取更新的签章ID：' + this.getSignatureid());
+						//console.log('获取更新的签章数据：'+this.getSignatureData());
+						fn(true);
+					}
+				});**/
+			}
+			window.onbeforeunload = onbeforeunload_handler;
+			window.onunload = onunload_handler;
+			function onbeforeunload_handler() {
+			}
+			function onunload_handler() {
+				//Signature.clearRPW();//清除密码
+			}
+		</script>
+	</head>
+	<body>
+		<div id="signature_jg_mobile" class="um-win" >
+		
+		<div style="margin:0 auto;">
+<table width=100% height=100% border="0" cellspacing="0" cellpadding="0" bgcolor="ffffff" style="margin:0 auto;width:100vw">
+<tr>
+  <td id="in" colspan=2 bgcolor="ffffff" height=32 align="center" style="display:none">
+    <!-- <input type="button" onclick="modifyPwd()" value="密码修改"> -->
+	<input type="button" pos="pos0" class="test" value="电子签章">
+	<input type="button" pos="pos0" class="testSign" value="签章(数字签名)">
+	    <input type="button" pos="pos0" class="testHW" value="手写签名">
+	    <input type="button" pos="pos0" class="testBC" value="二维码">
+	    <input type="button" pos="pos0" class="testScanBC" value="扫码签章">
+	<input type="button" pos="pos1" class="test" value="盖章位置B">
+	<input type="button" onclick="verifySignature()" value="验证签章">
+	<input type="button" onclick="showSignature()" value="显示签章">
+	<input type="button" onclick="hideSignature()" value="隐藏签章">
+	<input type="button" onclick="takeCare();" id="yfdiv" value="注意事项">
+    <!-- <br>本页为普通页面，用户可根据自己的需求更改。注意：签章密码为<font color="red">000000</font>。正式版iSignature电子签章HTML版的签章保存在用户智能印章钥匙盘上，支持身份认证和数字证书，符合《电子签名法》。 -->
+  </td>
+  <td align="center"><input type="button" id="backUpComing" value="回到待办页面" style="width: 124px;height: 33px;background: #fff;border: none;border: 1px solid #eee;border-radius: 8px;font-size: 16px;letter-spacing: 2px;margin-top: 50px;"></td>
+</tr>
+
+	<tr>
+  <td id=Page>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="ffffff" style="align:center">
+<tr><td height="50" align="center" valign="bottom"><!-- <font color="red" size="6"><b>订购合同<b></font> --></td></tr>
+<tr><td height="50" align="center"><div><!-- 合同编号:KG2016093001 --></div></td></tr>
+<tr>
+<td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" >
+<tr>
+<td style="" nowrap>
+<!-- <td style="border-bottom:1px solid; border-color:#ff0000" nowrap> -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr height="30">
+      <td ><!-- <font color="red">甲方：</font><input type="text" id="item1" kg-desc="保护项1" value="同创软件公司"> -->
+      <input type="hidden" id="item1" kg-desc="保护项1" value="同创软件公司">
+      </td>
+   </tr>
+   <tr height="30">
+      <td><!-- <font color="red">乙方：</font><input type="text" id="item2" kg-desc="保护项2" value="金格科技有限公司"> -->
+      <input type="hidden" id="item2" kg-desc="保护项2" value="金格科技有限公司">
+      </td>
+   </tr>
+</table>
+</td>
+</tr>
+<tr>
+<td style="" height="300" nowrap >
+<!-- <td style="border-bottom:1px solid; border-color:#ff0000" height="300" nowrap > -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" height="100%">
+   <tr>
+	  <td valign="top"><!-- <font color="red" >合作内容：</font>&nbsp; --></td>
+	</tr>
+	<tr>
+	  <td height="100%">
+	  <input type="hidden" id="item3" kg-desc="保护项3" value="金格科技有限公司">
+	  <!--<img id="picturetest" />
+	 <textarea rows="" cols="" id="item3" kg-desc="保护项3" style="overflow:auto;border:0;width:100%;height:95%;font-size: 14px;line-height: 2.5;">根据《合同法》及有关规定，经双方协商，达成一致，签订本合同。
+	一、甲方委托乙方制作无纸化办公系列产品。
+	二、具体规格型号、数量、单价及价格详见附后清单。
+	三、交货时间：60工作日
+	四、验收期限：20工作日。
+	五、双方在合同上电子签字盖章后立即生效。</textarea> -->
+       </td>
+    </tr>
+</table>
+</td>
+<tr>
+<td  height="250">
+	 <table width="100%" height="250" border="0" cellspacing="0" cellpadding="0" align="center"style="position:relative;">
+<!-- 	 <table width="100%" height="250" border="0" cellspacing="0" cellpadding="0" align="center"style=" border-bottom:1px solid; border-color:#ff0000;position:relative;"> -->
+            <tr height="250">
+<!--              <td height="30" valign="top" ><font color="red" >甲方签章：</font></td>   -->
+              <td height="250" style="cursor:hand;" valign="top">
+<!--               <td height="250" style="border-bottom:1px solid; border-color:#ff0000;cursor:hand;" valign="top"> -->
+              	<div style="position:absolute;width: 152px;height: 152px;left: 50%;top:-120%;margin-left: -76px;">
+	               	<div id="pos0"></div>
+	              </div>
+              </td>
+              </tr>
+	 </table>
+
+</td>
+</tr>
+
+<tr>
+<td style="" height="40" nowrap >
+<!-- <td style="border-bottom:1px solid; border-color:#ff0000" height="40" nowrap > -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" height="100%">
+   <tr>
+      <td width="10%"  ><!-- <font color="red">&nbsp;产品名称：</font> --></td>
+      <td><!-- <input type="text" id="CPMC" kg-desc="保护项1" value="iSignature电子签章系统">  --></td>
+   </tr>
+</table>
+</td>
+</tr>
+<tr>
+<td style="" height="40" nowrap  >
+<!-- <td style="border-bottom:1px solid; border-color:#ff0000" height="40" nowrap  > -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" height="100%" >
+   <tr>
+      <td width="10%" ><!-- <font color="red">&nbsp;订购数量：</font> --></td>
+      <td><!-- <input type="text" id="DGSL" value="53">  -->
+      </td>
+   </tr>
+</table>
+</td>
+</tr>
+<tr>
+<td style="" height="40" nowrap >
+<!-- <td style="border-bottom:1px solid; border-color:#ff0000" height="40" nowrap > -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" height="100%">
+   <tr>
+      <td width="10%" ><!-- <font color="red">&nbsp;订购日期：</font> --></td>
+      <td><!-- <input type="text" id="DGRQ" value="2016-10-18">  -->
+      </td>
+   </tr>
+</table>
+</td>
+</tr>
+
+
+<tr>
+<td style="" height="1" nowrap >
+<!-- <td style="border-bottom:1px solid; border-color:#ff0000" height="1" nowrap > -->
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td height="60">&nbsp;</td></tr>
+    </table>
+
+  </td>
+  <td width=2></td>
+</tr>
+<tr>
+  <td height=2></td>
+  <td></td>
+</tr>
+
+</table>
+</div>
+		
+		</div>
+	</body>
+	<script type="text/javascript">
+$("#backUpComing").click(function() {
+	summer.closeWin();
+	//待办
+	/**
+	summer.openWin({
+		id : 'upComing',
+		url : 'html/upComing.html',
+		//reload:true,
+		isKeep:false
+	});**/
+});
+function signatureBynow(){
+	var signatureCreator = Signature.create({
+		//keysn : '0741170010110516', //可以通过密钥盘序号或者用户编码获取签章。
+		//usercode:'0741170010110516'//获取签章服务器用户编码为“test”的印章	
+	});
+	var that = this;
+	var protectedItems = signatureCreator.run({
+		protectedItems : [ 'item1', 'item2', 'item3' ],//设置定位页面DOM的id，自动查找ID，自动获取保护DOM的kg-desc属性作为保护项描述，value属性为保护数据。不设置，表示不保护数据，签章永远有效。
+		//position : $(that).attr('pos'),//设置盖章定位dom的ID，必须设置
+		position : "pos0",//设置盖章定位dom的ID，必须设置
+		//autoCert : true,
+		okCall : function(fn) {//点击确定后的回调方法，this为签章对象 ,签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,保存成功后必须回调fn(true/false)渲染签章到页面上
+			console.log("盖章ID：" + this.getSignatureid());
+			console.log("盖章数据：" + this.getSignatureData());
+			//var signBillId = summer.pageParam.signBillId;
+			var bdata = summer.getStorage("bdata");
+			var signBillId=bdata["BILL_ID"];
+			fn(true);
+			//签章图片存缓存
+			signatureCreator.getBase64Image(this.getSignatureid(),this.getSignatureData(),"pos0", function(fn, imgdata,signid, sdata){
+				//$("#picturetest").attr('src',imgdata);
+				console.log(imgdata);
+				//signatureImagetype
+				summer.setStorage("signatureImagetype"+signBillId,imgdata[0]);
+				//signatureImagevalue
+				summer.setStorage("signatureImagevalue"+signBillId,imgdata[1]);
+				
+					var imagejg = [];
+					imagejg[0] = "data:image/png;base64";
+					imagejg[1] = imgdata[1];
+					//$("#picturetest").attr('src',imagejg);
+			});
+			
+			console.log("signBillId：" + signBillId);
+			summer.setStorage("signBillId"+signBillId,"true");
+			//signatureid
+			summer.setStorage("signatureid"+signBillId,this.getSignatureid());
+			//返回到审核页面，返回上一级
+			summer.closeWin();
+		},
+		cancelCall : function() {//点击取消后的回调方法
+			console.log("取消！");
+			summer.closeWin();
+			//返回到审核列表页面
+			/**
+			summer.openWin({
+				id : 'upComing',
+				url : 'html/upComing.html',
+				//reload:true,
+				isKeep:false
+			});**/
+		}
+	});
+}
+signatureBynow();
+function verifySignature() {
+	var invalidSignatureArray = Signature.verify();//返回无效签章
+	if (invalidSignatureArray.length > 0) {
+		for (var i = 0; i < invalidSignatureArray.length; i++) {
+			var signature = invalidSignatureArray[i];
+			//console.log(signature.modifiedItems);//获取修改的保护项
+		}
+	}else{
+		Signature.alert("当前文档所有签章有效");
+	}
+}
+function findUpdateSignature(){
+	var updateList = Signature.updateList;
+	$('#pos2').html('<div>获取有更新的签章数据:</div>');
+	for (var i = 0; i < updateList.length; i++) {
+		var signature = updateList[i];
+		$('#pos2').append('<div>'+signature.getSignatureid()+":"+signature.getSignatureData()+'</div>');
+	}
+}
+
+function findRemoveSignature(){
+	var removeList = Signature.removeList;
+	$('#pos1').html('<div>获取删除的签章ID：</div>');
+	for (var i = 0; i < removeList.length; i++) {
+		var signatureid = removeList[i];
+		$('#pos1').append('<div>'+signatureid+'</div>');
+	}
+}
+
+function showSignature() {
+	Signature.show();
+}
+
+
+function hideSignature() {
+	Signature.hide();
+}
+
+function CheckUrl(str) {
+    var RegUrl = new RegExp();
+    RegUrl.compile("^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/.=]+$");
+    if (!RegUrl.test(str)) {
+        return false;
+    }
+    return true;
+}
+
+function openwin(url) {
+	var a = document.createElement("a");
+	a.setAttribute("href", url);
+	a.setAttribute("target", "_blank");
+	a.setAttribute("id", "camnpr");
+	document.body.appendChild(a);
+	a.click();
+}
+
+$('.test').click(function() {
+	var signatureCreator = Signature.create({
+		//keysn : '0741170010110516', //可以通过密钥盘序号或者用户编码获取签章。
+		//usercode:'4D58323738136645'//获取签章服务器用户编码为“test”的印章	
+	});
+	var that = this;
+	console.log("0000000001"+$(that).attr('pos'));
+	var protectedItems = signatureCreator.run({
+		protectedItems : [ 'item1', 'item2', 'item3' ],//设置定位页面DOM的id，自动查找ID，自动获取保护DOM的kg-desc属性作为保护项描述，value属性为保护数据。不设置，表示不保护数据，签章永远有效。
+		position : $(that).attr('pos'),//设置盖章定位dom的ID，必须设置
+		okCall : function(fn) {//点击确定后的回调方法，this为签章对象 ,签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,保存成功后必须回调fn(true/false)渲染签章到页面上
+			console.log("盖章ID：" + this.getSignatureid());
+			console.log("盖章数据：" + this.getSignatureData());
+			fn(true);
+			//存后台
+			//签章图片存缓存
+			signatureCreator.getBase64Image(this.getSignatureid(),this.getSignatureData(),"pos0", function(fn, imgdata,signid, sdata){
+				//$("#picturetest").attr('src',imgdata);
+				console.log(imgdata);
+				//signatureImagetype
+				summer.setStorage("signatureImagetype"+signBillId,imgdata[0]);
+				//signatureImagevalue
+				summer.setStorage("signatureImagevalue"+signBillId,imgdata[1]);
+			});
+			//将单据号+标志存入summer
+			var signBillId = summer.pageParam.signBillId;
+			console.log("signBillId：" + signBillId);
+			summer.setStorage("signBillId"+signBillId,"true");
+			//返回到审核页面，返回上一级
+			summer.closeWin();
+		},
+		cancelCall : function() {//点击取消后的回调方法
+			console.log("取消！");
+			summer.closeWin();
+			//返回到审核列表页面
+			/**
+			summer.openWin({
+				id : "upComing",
+				url : "html/upComing.html",
+				reload : true,
+				isKeep : false
+			});**/
+		}
+	});
+});
+
+$('.testSign').click(function() {
+	var signatureCreator = Signature.create({
+		//keysn : '0741170010110516', //可以通过密钥盘序号或者用户编码获取签章。
+		//usercode:'0741170010110516'//获取签章服务器用户编码为“test”的印章	
+	});
+	var that = this;
+	var protectedItems = signatureCreator.run({
+		protectedItems : [ 'item1', 'item2', 'item3' ],//设置定位页面DOM的id，自动查找ID，自动获取保护DOM的kg-desc属性作为保护项描述，value属性为保护数据。不设置，表示不保护数据，签章永远有效。
+		position : $(that).attr('pos'),//设置盖章定位dom的ID，必须设置
+		autoCert : true,
+		okCall : function(fn) {//点击确定后的回调方法，this为签章对象 ,签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,保存成功后必须回调fn(true/false)渲染签章到页面上
+			console.log("盖章ID：" + this.getSignatureid());
+			console.log("盖章数据：" + this.getSignatureData());
+			fn(true);
+		},
+		cancelCall : function() {//点击取消后的回调方法
+			console.log("取消！")
+		}
+	});
+});
+
+$('.testHW').click(function(){
+	var signatureCreator = Signature.create();
+	var that = this;
+	
+	signatureCreator.handWriteDlg({
+		image_height: "6.7",
+		image_width: "5",
+		onBegin: function() {
+			console.log('onbegin');
+		},
+		onEnd: function() {
+			console.log('onEnd');
+		}
+	}, function(param){
+		//alert(param.imageData);
+		signatureCreator.runHW(param, {
+			protectedItems:[ 'item1', 'item2', 'item3'],//设置定位页面DOM的id，自动查找ID，自动获取保护DOM的kg-desc属性作为保护项描述，value属性为保护数据。不设置，表示不保护数据，签章永远有效。
+			position: $(that).attr('pos'),//设置盖章定位dom的ID，必须设置
+			okCall: function(fn) {//点击确定后的回调方法，this为签章对象 ,签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,保存成功后必须回调fn(true/false)渲染签章到页面上
+				console.log("盖章ID："+this.getSignatureid());
+				console.log("盖章数据："+this.getSignatureData());
+				fn(true);
+			},
+			cancelCall : function() {//点击取消后的回调方法
+				console.log("取消！")
+			}
+		});
+	});
+});
+
+$('.testBC').click(function() {
+	var signatureCreator = Signature.create();
+	var that = this;
+
+	signatureCreator.barCodeDlg({
+		image_height : "6.7",
+		image_width : "5",
+		content: "123"
+	}, function(param) {
+		alert(param.imageData);
+		signatureCreator.runHW(param, {
+			protectedItems : [ 'item1', 'item2', 'item3' ],//设置定位页面DOM的id，自动查找ID，自动获取保护DOM的kg-desc属性作为保护项描述，value属性为保护数据。不设置，表示不保护数据，签章永远有效。
+			position : $(that).attr('pos'),//设置盖章定位dom的ID，必须设置
+			okCall : function(fn) {//点击确定后的回调方法，this为签章对象 ,签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,保存成功后必须回调fn(true/false)渲染签章到页面上
+				console.log("盖章ID：" + this.getSignatureid());
+				console.log("盖章数据：" + this.getSignatureData());
+				fn(true);
+			},
+			cancelCall : function() {//点击取消后的回调方法
+				console.log("取消！")
+			}
+		});
+	});
+});
+
+$('.testScanBC').click(function() {
+	var signatureCreator = Signature.create();
+	var that = this;
+
+	signatureCreator.scanBCDlg({
+		image_height : "5",
+		image_width : "5",
+	}, function(param) {
+		//alert(param.imageData);
+		signatureCreator.runHW(param, {
+			protectedItems : [ 'item1', 'item2', 'item3' ],//设置定位页面DOM的id，自动查找ID，自动获取保护DOM的kg-desc属性作为保护项描述，value属性为保护数据。不设置，表示不保护数据，签章永远有效。
+			position : $(that).attr('pos'),//设置盖章定位dom的ID，必须设置
+			okCall : function(fn) {//点击确定后的回调方法，this为签章对象 ,签章数据撤销时，将回调此方法，需要实现签章数据持久化（保存数据到后台数据库）,保存成功后必须回调fn(true/false)渲染签章到页面上
+				console.log("盖章ID：" + this.getSignatureid());
+				console.log("盖章数据：" + this.getSignatureData());
+				fn(true);
+				if(CheckUrl(param.imageData)){
+					openwin(param.imageData);
+				} 
+			},
+			cancelCall : function() {//点击取消后的回调方法
+				console.log("取消！")
+			}
+		});
+	});
+});
+
+function takeCare() {
+	Signature.alert('注意：（1）请先在签章服务器发放用户编码为"test"的用户并制作印章。<br>（2） 由于IE9及以下浏览器受限，请使用其他浏览器访问本页面，如果需要IE访问，<br>复制本页面目录和kinggrid文件夹至服务器端访问。 ');
+}
+	</script>
+	<!-- <script src="../js/login_debug.js" ></script>-->
+</html>

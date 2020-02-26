@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title>单据类型</title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/pages/select_bills.css">
+		<script src="../js/summer.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+		<script src="../js/app/select_bills.js"></script>
+	</head>
+	<style>
+		.Upcoming-main .um-listgroup-title {
+			padding-left: 10px;
+			border-bottom: 1px solid #efeff4;
+			margin-top: 10px;
+		}
+		.um-listgroup-title {
+			position: relative;
+		}
+		.um-listgroup-title {
+			height: 46px;
+			padding: 0 0 0 15px;
+			background: #ffffff;
+			font-size: 16px;
+			font-weight: bold;
+			font-family: "Heiti SC", "microsoft yahei";
+			border-bottom: 1px solid #ddd;
+			color: black;
+		}
+		.um-content .um-listgroup-title span {
+			border-left: 3px solid #01A0E9;
+			height: 18px;
+			line-height: 19px;
+			padding-left: 10px;
+		}
+	</style>
+	<body>
+		<div class="um-win" id="bills">
+			<div class="um-header">
+				<a href="../html/select_detail.html" onclick="" class="um-back">返回</a>
+				<h3>单据类型</h3>
+			</div>
+
+			<div class="um-content">
+
+				<div class="exp" style="display: flex;background: #fff;padding-left: 10px;border-bottom: 1px solid #d9d9d9">
+					<a class="um-box-vc um-listgroup-title" style="border-bottom: 0"> <span class="f15 ng-binding">报销单</span> </a>
+				</div>
+				<div class="um-grid um-row">
+					<div class="um-grid-row tc um-border-bottom">
+						<div class="um-border-right um-bgc-white">
+							<a onclick="openBill('expenditure_new')" class="um-circle um-black"> <img src="../img/new/nybt.png" width=40 class="um-img-responsive" alt="">
+							<div class="f12 mt5">
+								经费报销单
+							</div> </a>
+						</div>
+						<div class="um-border-right um-bgc-white">
+							<a onclick="openBill('travelexpense_new')" class="um-circle um-black"> <img src="../img/new/qgqk.png" width=40 class="um-img-responsive" alt="">
+							<div class="f12 mt5">
+								差旅费报销单
+							</div> </a>
+						</div>
+						<div class="um-border-right um-bgc-white">
+							<a onclick="openBill('officialcar_new')" class="um-circle um-black"> <img src="../img/new/toDo.png" width=40 class="um-img-responsive" alt="">
+							<div class="f12 mt5">
+								公车维护报销单
+							</div> </a>
+						</div>
+					</div>
+					<div class="um-grid-row tc um-border-bottom">
+						<div class="um-border-right um-bgc-white">
+							<a onclick="openBill('officialbusiness_new')" class="um-circle um-black"> <img src="../img/new/ckhs.png" width=40 class="um-img-responsive" alt="">
+							<div class="f12 mt5">
+								公务接待报销单
+							</div> </a>
+						</div>
+						<div class="um-border-right um-bgc-white">
+							<a onclick="openBill('meetingfee_new')" class="um-circle um-black"> <img src="../img/new/sjqk.png" width=40 class="um-img-responsive" alt="">
+							<div class="f12 mt5">
+								会议费报销单
+							</div> </a>
+						</div>
+						<div class="um-border-right um-bgc-white">
+							<a onclick="openBill('trainingexpense_new')" class="um-circle um-black"> <img src="../img/new/zfcg.png" width=40 class="um-img-responsive" alt="">
+							<div class="f12 mt5">
+								培训费报销单
+							</div> </a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="um-footer">
+
+			</div>
+		</div>
+	</body>
+	<script>
+		function openBill(billName) {
+			summer.openWin({
+				"id" : billName,
+				"url" : "html/" + billName + ".html",
+			});
+		}
+	</script>
+</html>

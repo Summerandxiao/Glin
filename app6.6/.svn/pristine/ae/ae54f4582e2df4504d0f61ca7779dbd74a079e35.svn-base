@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">	
+        <link rel="stylesheet" href="../css/pages/main-module.css"> 
+		<script src="../js/summer.js" ></script>		
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script src="../js/app/updatePwd.js" ></script>
+	</head>
+	<body>
+		<div class="um-win updatePwd-main" id="updatePwd">
+			<div class="um-header" >
+				<h3>修改密码</h3>
+			</div>
+
+			<div class="um-content">
+			
+            <ul class="um-list">
+            	<li class="um-list-item">
+            		<div class="um-list-item-inner">
+            			<div class="um-list-item-left">
+            				原密码
+            			</div>
+            			<div class="um-list-item-right">
+            				<input type="password" class="form-control" placeholder="请输入原密码" id="oldPass">
+            			</div>
+            		</div>
+            	</li>
+            	<li class="um-list-item">
+            		<div class="um-list-item-inner">
+            			<div class="um-list-item-left">
+            				新密码
+            			</div>
+            			<div class="um-list-item-right">
+            				<input type="password" class="form-control" placeholder="包含数字、字母且8-16位" id="newPass">
+            			</div>
+            		</div>
+            	</li>
+            	<li class="um-list-item">
+            		<div class="um-list-item-inner">
+            			<div class="um-list-item-left">
+            				确认密码
+            			</div>
+            			<div class="um-list-item-right">
+            				<input type="password" class="form-control" placeholder="请再次输入新密码" id="ConfirmPass">
+            			</div>
+            		</div>
+            	</li>
+            </ul>
+            <div class="sure-btn-miss">
+                  <button onclick="doSave()" href="javascript:void(0)">确认修改</button>
+                  <button onclick="summer.closeWin();"  href="javascript:void(0)" style="margin-top: 10px;">取消</button>
+            </div>
+			</div>
+		</div>
+	</body>
+</html>

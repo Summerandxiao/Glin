@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/ufgov-component.css">
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<style>
+			.btn {
+				margin: 0 auto;
+				width: 80%;
+				height: auto;
+			}
+			#cancel {
+				margin-top: 15px;
+			}
+			.um-list {
+				margin: 30px 0px;
+			}
+			.um-list li {
+				border-bottom: 1px solid #ddd
+			}
+			.um-list .um-list-item-inner {
+				padding: 0 15px;
+			}
+		</style>
+		<script>
+			$isWeb = true
+		</script>
+		<script>
+			function $pageReady() {
+				alert("webview ready");
+			}
+		</script>
+	</head>
+	<body>
+		<div class="um-page" id="netConfig">
+			<div class="um-header">
+				<a href="login.html" class="um-back">返回</a>
+				<h3>网络连接</h3>
+			</div>
+			<div class="um-content">
+				<ul class="um-list">
+					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left">
+									ip或域名
+								</div>
+								<div class="um-list-item-right">
+									<input type="text" id="ip" class="form-control" placeholder="请输入ip或域名" required>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="um-list-item">
+							<div class="um-list-item-inner">
+								<div class="um-list-item-left">
+									端口号
+								</div>
+								<div class="um-list-item-right">
+									<input type="number" id="port" class="form-control" placeholder="请输入端口号" required>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+				<button class="btn um-btn-info" id="save">
+					保存连接
+				</button>
+				<button class="btn um-btn-info" id="cancel">
+					取消
+				</button>
+			</div>
+		</div>
+	</body>
+	<script src="../js/summer.js" ></script>
+	<script src="../js/jquery.min.js" ></script>
+	<script src="../js/app/netConfig.js" ></script>
+</html>

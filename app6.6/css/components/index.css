@@ -1,0 +1,34 @@
+/* 设置背景图片 */
+.icon-home, .icon-toDo, .icon-share, .icon-me {
+    height: 25px;
+    background: url(../../img/Home-25.png) center no-repeat;
+}
+.icon-toDo {
+    background-image: url(../../img/toDo-25.png);
+}
+.icon-share {
+    background-image: url(../../img/Share-25.png);
+}
+.icon-me {
+    background-image: url(../../img/Me-25.png);
+}
+/* 设置激活状态 */
+.um-footerbar-item.active .icon-home {
+    background-image: url(../../img/Home-25-active.png);
+}
+.um-footerbar-item.active .icon-toDo {
+    background-image: url(../../img/toDo-25-active.png);
+}
+.um-footerbar-item.active .icon-share {
+    background-image: url(../../img/Share-25-active.png);
+}
+.um-footerbar-item.active .icon-me {
+    background-image: url(../../img/Me-25-active.png);
+}
+.distance {
+    padding-top: 10px;
+    font-size: 14px;
+}
+.um-grid-row {
+    padding-bottom: 6px;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title>切换单位</title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/pages/changeCompany.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script type="text/javascript" src="../js/doT.js"></script>
+	</head>
+	<body>
+		<div class="um-win" id="changeCompany">
+			<div class="um-header" >
+				<a href="javascript:void(0)" onclick="summer.openWin({
+			id : 'MyInfo',
+			url : 'html/MyInfo.html',
+			reload : true,
+			isKeep : false
+		});" class="um-header-left">取消</a>
+				<h3>单位切换</h3>
+			</div>
+
+			<div class="um-content pl15 pr15">
+				<div class="um-check-group um-check-group-left" id="companylist">
+					<script type="text/x-dot-template" id="list">
+						{{~it.list:value:index }}
+						<label class="um-check-group-item">
+						<input name="um-leftRadio" type="radio" coCode="{{=value.CO_CODE}}">
+						<span class="um-icon-check um-css3-vc"></span>
+						<span id="coName" class="um-black" data-bind="text:CO_NAME">{{=value.CO_NAME}}</span> </label>
+						{{~}}
+					</script>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/app/changeCompany.js" ></script>
+</html>

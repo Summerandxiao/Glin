@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<style>
+			.outer:before {
+				content: "";
+				display: inline-block;
+				height: 100%;
+				width: 0;
+				vertical-align: middle;
+				margin-left: -.25em;
+			}
+			.inner {
+				display: inline-block;
+				vertical-align: middle;
+				width: 200px;
+				height: 21px;
+				color: #666;
+				font-size: 21px;
+				font-family: "Comic Sans MS", cursive;
+				text-align: center;
+				line-height: 21px;
+				overflow: hidden;
+			}
+			html, body {
+				padding: 0;
+				margin: 0;
+				height: 100%;
+				width: 100%;
+			}
+			.outer {
+				width: 100%;
+				height: 100%;
+				text-align: center;
+			}
+
+		</style>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	</head>
+	<body>
+		<div class="um-win" id="wait">
+			<div class="outer">
+				<div class="inner">
+					<span>请稍后......</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

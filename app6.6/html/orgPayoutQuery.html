@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/ufgov-component.css">
+		<style>
+			#conditions {
+				width: 90%;
+				position: fixed;
+				left: 45%;
+				top: 30%;
+				margin-left: -40%;
+				background-color: #dedede;
+				z-index: 100;
+				border-radius: 10px;
+			}
+		</style>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script src="../js/app/orgPayoutQuery.js" ></script>
+	</head>
+	<body>
+		<div class="um-page org-main" id="orgPayoutQuery">
+			<div class="um-header" >
+				<a href="#" onclick="summer.closeWin();" class="um-back">返回</a>
+				<h3>部门经费</h3>
+				<div class="um-header-btns" onclick="$('#conditions').show()">
+					<i class="ti-more" style="transform: rotate(90deg);"></i>
+				</div>
+			</div>
+			<div class="um-content">
+				<div id="conditions">
+					<div class="um-label um-box-justify" style="margin-top: 30px;">
+						<div>
+							单位
+						</div>
+						<div>
+							<select id="unit" class="ufgov-select">
+								<option value="1">元</option>
+								<option value="10000">万元</option>
+							</select>
+						</div>
+					</div>
+					<div class="btn-group" style="width: 200px;left: 50%;margin:30px 0;margin-left: -100px;">
+						<button type="button" class="btn btn-inline" style="width: 50%" onclick="$('#conditions').hide()">
+							取消
+						</button>
+						<button type="button" class="btn btn-inline" style="width: 50%" onclick="loadData()">
+							确定
+						</button>
+					</div>
+				</div>
+				<div class="um-listview-wrap" id ="orgPayoutQueryContent"></div>
+				<script type="text/x-dot-template" id="orgPayoutQueryList">
+					<ul class="um-list um-no-active" >
+					<li class="um-list-divider">{{=it.ORG_NAME}}</li>
+					{{ for (var i=0;i<it.length;i++ ){ }}
+					<li class="um-listview-row" id="{{=i}}">
+					<a class="btn" style="border: none;padding-bottom: 0;" onclick="subgo(this)" href="javascript:void(0)" orgCode="{{=it[i].ORG_CODE}}">
+					<div class="um-list-item-inner">
+					<div class="um-list-item-body" style="padding-right:0;">
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">月份:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i].PERIOD}}月</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">执行金额:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i].PAYOUT_AMT}}</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">执行率:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i].EXEC_PRO}}%</span>
+					</div>
+					</div>
+					</div>
+					</div>
+					</a>
+					</li>
+					{{ } }}
+					</ul>
+				</script>
+			</div>
+
+		</div>
+	</body>
+	<script src="../js/doT.js" ></script>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<meta charset="UTF-8">
+	<title>经费报销单</title>
+	<link rel="stylesheet" href="../css/font-icons.css">
+	<link rel="stylesheet" href="../css/iuapmobile.um.css">
+	<link rel="stylesheet" href="../css/ufgov-component.css">
+	<link rel="stylesheet" href="../css/pages/expenditure_new.css">
+	<link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+	<link rel="stylesheet" href="../css/iscroll.css" />
+	<style>
+		.ti-trash {
+			line-height: 40px;
+		}
+		#userName_dummy {
+			border: none;
+			padding-left: 10px;
+			color: #555;
+			font-size: 17px;
+		}
+		#userName_dummy:disabled {
+			background: #fff;
+		}
+	</style>
+
+	<style>
+		#receiveAccountId_dummy {
+			border: none;
+			padding-left: 10px;
+			color: #555;
+			font-size: 17px;
+		}
+		#receiveAccountId_dummy:disabled {
+			background: #fff;
+		}
+	</style>
+
+	<style>
+		#expenditure_content_dummy {
+			border: none;
+			padding-left: 10px;
+			color: #555;
+			font-size: 17px;
+		}
+		#expenditure_content_dummy:disabled {
+			background: #fff;
+		}
+	</style>
+
+	<style>
+		#applyBillList_dummy {
+			border: none;
+			padding-left: 10px;
+			color: #555;
+			font-size: 17px;
+		}
+		#applyBillList_dummy:disabled {
+			background: #fff;
+		}
+	</style>
+
+	<style>
+		.um-process {
+			margin-left: 15px;
+		}
+		.um-process .um-list-item {
+			position: relative;
+			border-left: 2px dotted green;
+		}
+		.um-process .um-list-item:last-child {
+			border-left: none;
+		}
+		.um-process .um-list-item:before {
+			content: none !important;
+		}
+		.um-process .um-list-item:after {
+			content: url("../img/marker5.jpg");
+			position: absolute;
+			left: -12px;
+			top: 2px;
+			width: 14px;
+		}
+		.um-process .um-list-item:first-child:after {
+			content: url("../img/marker6.jpg");
+		}
+		.um-process .um-list-item:last-child:after {
+			content: url("../img/marker4.jpg");
+		}
+		.um-swipe-btns {
+			right: -25px !important;
+			background-color: red;
+		}
+		.mark1{
+			width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    z-index: 9;
+		    background: rgba(0,0,0,.3);
+		    overflow:hidden;
+		    display:none
+		}
+		.dialog{
+		    z-index: 10;
+		    background: #fff;
+		    border-top: 2px solid #000;
+		    height: 190px;
+		    width: 100%;
+		    position: absolute;
+		    left: 0;
+		    bottom: -190px;
+		   	transition: bottom .3s;
+		}
+		.dialog p {
+		    height:46px;
+		    line-height:46px;
+			border-bottom: 1px solid #ccc;
+		}
+		.dialog p:last-child {
+		    padding: 0
+		}
+		.dialog p button{
+			width: 100%;
+		    background: #fd5847;
+		    border-radius: 0;
+		    color: #fff;
+		    border: 0;
+		}
+		#fileList li {
+			display: flex;
+			justify-content: space-between;
+			height: 40px;
+			align-items: center;
+			border-bottom: 1px solid #ccc;
+		}
+		#fileList li:last-child {
+			border: 0;
+		}
+	</style>
+
+	<script src="../js/summer.min.js" ></script>
+	<script src="../js/jquery.min.js" ></script>
+	<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+	<script type="text/javascript" src="../js/knockout-2.2.0.js"></script>
+	<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+	<script type="text/javascript" src="../js/knockout.js"></script>
+	<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+	<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listview.js"></script>
+	<script src="../js/util.js" ></script>
+	<script src="../js/doT.js" ></script>
+	<script src="../js/app/expenditure_edit.js"></script>
+	<script src="../js/jquery.json-2.2.min.js"></script>
+	<script src="../js/iscroll.js"></script>
+
+</head>
+<body>
+	<div class="um-page" id="JFBXD">
+		<div class="um-header" >
+			<a href="../html/select_bills.html" onclick="summer.closeWin();" class="um-back">返回</a>
+			<h3>经费报销单</h3>
+		</div>
+		<div class="um-content" style="position: relative;">
+			<div class="um-listgroup-wrap" id="listgroup">
+				<ul class="um-listgroup">
+					<li class="um-listgroup-group" >
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>基本信息 </span> </a>
+
+						<ul class="um-list um-no-active" style="padding:0 40px;">
+							<li class="um-listgroup-row" id="basicMessage">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										报销部门: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="orgName" type="text" class="form-control go-dest-money" placeholder="内容调用"  disabled="disabled">
+										<span style="color: #0085ff;"></span>
+										</input>
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										<span class="um-red f20 um-box-vc pa" style="margin-left: -10px;">*</span>
+										报销人: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+
+										<input id="appId" type="text" class="form-control go-dest-money" placeholder="内容调用" disabled="disabled">
+										<span style="color: #0085ff;"></span>
+										</input>
+										<!-- <select name="" id="appId"></select> -->
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										<span class="um-red f20 um-box-vc pa" style="margin-left: -10px;">*</span>
+										报销事由: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="reason" type="text" class="form-control go-dest-money" placeholder="内容填写">
+										<span style="color: #0085ff;"></span>
+										</input>
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										<span class="um-red f20 um-box-vc pa" style="margin-left: -10px;">*</span>
+										票据张数: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="ticketCount" type="text" class="form-control go-dest-money" placeholder="内容填写" oninput = "value=value.replace(/[^\d]/g,'')">
+										<span style="color: #0085ff;"></span>
+										</input>
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										合计: &nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="moneyGroup" type="text" class="form-control go-dest-money" placeholder="内容计算" readonly="readonly">
+										</input>
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										备注: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="remark" type="text" class="form-control go-dest-money" placeholder="内容填写">
+										<span style="color: #0085ff;"></span>
+										</input>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="um-listgroup-group um-listview-wrap" id="transportation">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span id="billTypeTitle">报销明细 </span> </a>
+						<ul class="um-list um-no-active detail-btn" style="padding:0 40px;">
+
+						</ul>
+						<div href="#" id="dateBtnGroup" class="btn-group btn-group-justify">
+							<button type="button" class="btn ti-plus" style="color: black">
+								新增报销明细
+							</button>
+						</div>
+					</li>
+					<li class="um-listgroup-group um-listview-wrap" id="cashGroup">
+						<a class="um-box-vc um-listgroup-title">
+						<div class="um-list-item-left">
+							<span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span>
+							<span>结算信息&nbsp;&nbsp;现金小计：</span>
+						</div>
+						<div class="um-list-item-right">
+							<span id="cashs" class="">0.00</span>
+						</div> </a>
+						<ul class="um-list um-no-active detail-btn" style="padding:0 40px;">
+
+						</ul>
+						<div href="#" id="dateBtnGroup_cash" class="btn-group btn-group-justify ">
+							<button type="button" id="#" class="btn ti-plus" style="color: black">
+								新增现金明细
+							</button>
+						</div>
+					</li>
+					<li class="um-listgroup-group um-listview-wrap" id="transferGroup">
+						<a class="um-box-vc um-listgroup-title">
+						<div class="um-list-item-left">
+							<span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span>
+							<span>结算信息&nbsp;&nbsp;转账/汇款小计：</span>
+						</div>
+						<div class="um-list-item-right">
+							<span id="transfers" class="">0.00</span>
+						</div> </a>
+						<ul class="um-list um-no-active detail-btn" style="padding:0 40px;">
+
+						</ul>
+						<div href="#" id="dateBtnGroup_transfer" class="btn-group btn-group-justify ">
+							<button type="button" id="dateBtnGroup_transfer" class="btn ti-plus" style="color: black">
+								新增转账\汇款明细
+							</button>
+						</div>
+					</li>
+					<li class="um-listgroup-group um-listview-wrap" id="bizcardGroup">
+						<a class="um-box-vc um-listgroup-title">
+						<div class="um-list-item-left">
+							<span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span>
+							<span>结算信息&nbsp;&nbsp;公务卡小计：</span>
+						</div>
+						<div class="um-list-item-right">
+							<span id="bizcards" class="">0.00</span>
+						</div> </a>
+						<ul class="um-list um-no-active detail-btn" style="padding:0 40px;">
+
+						</ul>
+						<div href="#" id="dateBtnGroup_bizcard" class="btn-group btn-group-justify ">
+							<button type="button" id="dateBtnGroup_bizcard" class="btn ti-plus" style="color: black">
+								新增公务卡明细
+							</button>
+						</div>
+
+					</li>
+					<!--用款申请单 -->
+					<li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>用款申请单 </span> </a>
+						<ul class="um-list um-no-active" style="padding:0 40px;">
+							<li class="um-listgroup-row">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										用款申请单: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input type="text" id='applyBillList_dummy'/>
+										<select id='applyBillList' multiple="multiple">
+
+										</select>
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										申请金额: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="usedMoney" type="text" class="form-control go-dest-money" placeholder="内容调用" readonly="readonly">
+										<span style="color: #0085ff;"></span>
+										</input>
+									</div>
+								</div>
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left">
+										可用余额: &nbsp;&nbsp;
+									</div>
+									<div class="um-list-item-right">
+										<input id="avaliableMoney" type="text" class="form-control go-dest-money" placeholder="内容调用" readonly="readonly">
+										<span id="yue" style="color: #0085ff;"></span>
+										</input>
+										<input id="billId" type="hidden"/>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="um-listgroup-group">
+						<a class="um-box-vc um-listgroup-title"> <span class="um-listgroup-icon"> <i class="ti-angle-down"></i> </span> <span>附件列表 </span> </a>
+						<ul class="um-list um-no-active" id="fileList" style="padding:0 20px;">
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="um-footer" id="approveBtns">
+			<div class="btn-group btn-group-justify">
+				<button id="approve" type="button" class="btn btn-inline" style="font-size:16px;">
+					<span class="ti-save"></span>
+					&nbsp;修改
+				</button>
+				<button id="delete" type="button" class="btn btn-inline" style="font-size:16px;">
+					<span class="ti-trash"></span>
+					&nbsp;删除
+				</button>
+				<button id="backInput" type="button" class="btn btn-inline" style="font-size:16px;">
+					<span class="ti-microsoft"></span>
+					&nbsp;提交
+				</button>
+				<button id="uploadfile" type="button" class="btn btn-inline" style="font-size:16px;">
+					<span class="ti-link"></span>
+					&nbsp;附件
+				</button>
+			</div>
+		</div>
+		<div class="mark1">
+			<div class="dialog">
+				<p class='tc' id="addFile">添加附件</p>
+				<p class='tc' id="photograph">拍照</p>
+				<p class="tc" style="margin-top:50px">
+					<button id="cancel" type="button" class="btn btn-inline" style="">
+						取消
+					</button>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!--报销明细  -->
+	<div class="um-page" id="goDest">
+		<div class="um-header">
+			<a href="#" class="um-back">返回</a>
+			<h3>报销明细</h3>
+		</div>
+		<div class="um-content">
+			<ul class="um-list um-list-style">
+
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;开支内容
+						</div>
+						<div class="um-list-item-right">
+							<input id="KZ_CONTEXT" type="text" class="form-control" placeholder="请填写内容" >
+						</div>
+					</div>
+				</li>
+
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;报销金额
+						</div>
+						<div class="um-list-item-right">
+							<input id="money_baoxiao" type="text" class="form-control" placeholder="0.00" oninput = "value=value.replace(/[^\d]/g,'')"/>
+						</div>
+					</div>
+				</li>
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;核定金额
+						</div>
+						<div class="um-list-item-right">
+							<input id="checkMoney" type="text" class="form-control" placeholder="0.00" readonly="readonly" oninput = "value=value.replace(/[^\d]/g,'')"/>
+						</div>
+					</div>
+				</li>
+
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;备注
+						</div>
+						<div class="um-list-item-right">
+							<input id="remark_baoxiao" type="text" class="form-control go-dest-money" placeholder="内容说明">
+							</input>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<button class="btn btn-style" id="dest_detail_confirm" >
+				确认
+			</button>
+		</div>
+	</div>
+	<!--结算信息 现金  -->
+	<div class="um-page" id="cash">
+		<div class="um-header">
+			<a href="#" class="um-back">返回</a>
+			<h3>现金明细</h3>
+		</div>
+		<div class="um-content">
+			<ul class="um-list um-list-style">
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;金额
+						</div>
+						<div class="um-list-item-right">
+							<input id="cash_money" type="text" class="form-control" placeholder="请填写金额" oninput = "value=value.replace(/[^\d]/g,'')">
+						</div>
+					</div>
+				</li>
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;收支
+						</div>
+						<div class="um-list-item-right">
+							<input type="text" id='expenditure_content_dummy' />
+							<select id='expenditure_content'>
+								<option>请选择</option>
+								<option value="-1">领取</option>
+								<option value="1">退回</option>
+							</select>
+						</div>
+					</div>
+				</li>
+
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left">
+							&nbsp;&nbsp;备注
+						</div>
+						<div class="um-list-item-right">
+							<input id="cash_remark" type="text" class="form-control" placeholder="内容说明">
+							</input>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<button class="btn btn-style" id="dest_xianjin_bth">
+				确认
+			</button>
+		</div>
+	</div>
+	<!--结算信息 转账  -->
+	<div class="um-page" id="transfer">
+		<div class="um-header">
+			<a href="#" class="um-back">返回</a>
+			<h3>转账明细</h3>
+		</div>
+		<div class="um-content" id="">
+			<ul class="um-list">
+				<input id="receiveAccount" type="hidden"/>
+				<input id="receiveBank" type="hidden"/>
+				<input id="correspbank" type="hidden"/>
+				<input id="accID" type="hidden"/>
+				<input id="receiveBankCode" type="hidden"/>
+				<li>
+					<div class="um-list-item-inner">
+						<div class="um-input-text um-list-item-left pl15">
+							<span class="um-input-left">收款方户名</span>
+						</div>
+						<div class="um-list-item-right">
+							<input type="text" id='receiveAccountId_dummy'/>
+							<select id='receiveAccountId'>
+
+							</select>
+							<!--<input type="text" list="receiveAccount" id='receiveAccountId_dummy'/>
+							<datalist id="receiveAccount">
+							  <option value="Apple">
+							  <option value="Microsoft">
+							  <option value="Github">
+							</datalist>-->
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="um-list-item">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-left pl15">
+								<span class="um-input-left">金额</span>
+							</div>
+							<div class="um-list-item-right">
+								<input id="transfer_money" type="text" class="form-control go-dest-money" placeholder="请输入结算金额" style="border:0px;background: none" oninput = "value=value.replace(/[^\d]/g,'')">
+								</input>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<button class="btn btn-style" id="dest_transfer_bth">
+				确认
+			</button>
+		</div>
+	</div>
+	<!--结算信息 公务卡  -->
+	<div class="um-page" id="bizcard">
+		<div class="um-header">
+			<a href="#" class="um-back">返回</a>
+			<h3>公务卡明细</h3>
+		</div>
+		<div class="um-content" id="dest_bizcard">
+			<ul class="um-list">
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-input-text um-list-item-left pl15">
+							<span class="um-input-left">持卡人姓名</span>
+						</div>
+						<div class="um-list-item-right">
+							<input type="text" id='userName_dummy'/>
+							<select id='userName'>
+
+							</select>
+						</div>
+					</div>
+				</li>
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left pl15">
+							<span class="um-input-left">卡号</span>
+						</div>
+						<div class="um-list-item-right">
+							<input id="cardNo" type="text" class="form-control go-dest-money" placeholder="卡号调用" disabled="disabled">
+							</input>
+						</div>
+					</div>
+				</li>
+
+				<li class="um-list-item">
+					<div class="um-list-item-inner">
+						<div class="um-list-item-left pl15">
+							<span class="um-input-left">报销金额</span>
+						</div>
+						<div class="um-list-item-right">
+							<input id="bizcard_money" type="text" class="form-control go-dest-money" placeholder="0.00" oninput = "value=value.replace(/[^\d]/g,'')">
+							</input>
+							<input id="userId" type="hidden"/>
+							<input id="orgCode" type="hidden"/>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<button class="btn btn-style" id="bizcard_bth">
+				确认
+			</button>
+		</div>
+	</div>
+
+	<script></script>
+	<script>
+		$(function() {
+			//构造控件实例
+			var listgroup = UM.listgroup("#listgroup");
+			//隐藏 打开
+		});
+	</script>
+	<script>
+		$(function() {
+			// var curr = new Date().getFullYear();
+			var opt = {
+				'date' : {
+					preset : 'date'
+				},
+				'select' : {
+					preset : 'select'
+				}
+			};
+			$('#expenditure_content').scroller('destroy').scroller($.extend(opt['select'], {
+				theme : "ios7",
+				mode : "scroller",
+				display : "bottom",
+				animate : ""
+			}));
+		});
+	</script>
+
+</body>
+</html>

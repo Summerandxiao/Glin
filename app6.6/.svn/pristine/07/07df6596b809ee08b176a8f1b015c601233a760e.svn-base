@@ -1,0 +1,141 @@
+﻿summerready = function() {
+	var userInfo_local;
+	var ip = summer.getStorage('ip');
+	var url = 'http://' + ip + '/FS';
+	funcGoto = function() {
+		var param = "senderId=" + userInfo_local.userId
+		param += "&sendStatus=2&wfStatus=0&isRead=1";
+		//已发送 审核中 未读
+		$.getJSON(url + "/services/pushService/getMessageCount?" + param, function(data) {
+			if (data.resultCode == "1") {
+				if ("0" != data.rows) {
+					$("#msgNum").attr("style", "display:");
+					$("#msgNum").text(data.rows);
+				} else {
+					$("#msgNum").attr("style", "display:none");
+				}
+			}
+		});
+	}
+	if (summer.getStorage('userInfo_local')) {//有数据
+		userInfo_local = JSON.parse(summer.getStorage('userInfo_local'));
+		//funcGoto();//显示未读消息条数 也是消息列表页面返回到index页面调用的方法
+	} else {//无数据
+		summer.openWin({
+			id : 'login',
+			url : 'html/login.html',
+			reload : true,
+			isKeep : false,
+			pageParam : {
+				compoId : '',
+				title : '登录'
+			}
+		});
+		alert("请先登录");
+		return;
+	}
+
+	// 根据用户名做权限认证
+	//alert("自动登陆,有数据");
+	var param = "USER_CODE=" + userInfo_local.userId;
+	param += "&USER_TYPE=" + summer.getStorage("userType");
+	param += "&APP=yes";
+	param += "&PARENT_CODE=110";
+
+	$.ajax({
+		type : "POST",
+		async : false,
+		url : "http://" + ip + "/FS/services/roleService/selectUserMenuList?" + param,
+		success : function(data) {
+			console.log(data.rows);
+			var menulistText = doT.template($("#menulist-tmpl").text());
+			$("#menulist").append(menulistText(data.rows));
+		}
+	});
+	var menuLink = $(".um-grid");
+	menuLink.on("click", function(e) {
+		var target = e.target;
+		var parent = $summer.closest(target, '.um-box-center');
+		if (parent) {
+			summer.openWin({
+				id : parent.id,
+				url : 'html/' + parent.id + '.html',
+				reload : true,
+				pageParam : {
+					name : 'test'
+				}
+			});
+		}
+	});
+
+	//document.addEventListener("backbutton", onBackKeyDown, false);  //监听返回键
+
+	//消息
+	$('#msg').click(function() {
+		summer.openWin({
+			id : 'messageList',
+			animation : {
+				type : "none", //动画类型（详见动画类型常量）
+				subType : "from_right", //动画子类型（详见动画子类型常量）
+				duration : 300 //动画过渡时间，默认300毫秒
+			},
+			url : 'html/messageList.html',
+			reload : true,
+			pageParam : {
+				title : '信息列表'
+			}
+		});
+	});
+
+	//待办
+	$("#upComing").on("click", function(e) {
+		summer.openWin({
+			id : 'upComing',
+			url : 'html/upComing.html',
+			reload:true,
+			isKeep:false
+		});
+	});
+
+	//我的
+	$('#MyInfo').click(function() {
+		summer.openWin({
+			id : 'MyInfo',
+			url : 'html/MyInfo.html',
+			reload:true,
+			isKeep:false
+		});
+	});
+}
+function openNewWin(id, compoId, title) {
+	//判断是否有登录系统
+	if (summer.getStorage('userInfo_local')) {//有数据
+		console.log("登录中");
+		//alert("登陆中");
+		summer.openWin({
+			id : id,
+			url : 'html/' + id + '.html',
+			reload : true,
+			pageParam : {
+				compoId : compoId,
+				title : title
+			}
+		});
+
+	} else {
+		//alert("跳转到登陆");
+
+		//跳转到登录页面
+		summer.openWin({
+			id : 'login',
+			url : 'html/login.html',
+			reload : true,
+			isKeep : false,
+			pageParam : {
+				compoId : '',
+				title : '登录'
+			}
+		});
+	}
+
+}

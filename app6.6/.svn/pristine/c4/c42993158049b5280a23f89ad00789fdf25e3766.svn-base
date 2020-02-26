@@ -1,0 +1,138 @@
+var bill;
+summerready = function() {
+	var ip = summer.getStorage('ip');
+	var url = 'http://' + ip + '/FS';
+	if (summer.getStorage('userInfo_local')) {//有数据
+		var billNo = summer.getStorage("billNo");
+		loadData(billNo);
+		
+		$("#agree").on("click",function(){
+			UM.confirm({
+			    text: '您确定要审批单据吗？',
+			    btnText: ["否", "是"],
+			    overlay: true,
+			    ok: function () {
+			        agreeData();
+			    },
+			    cancle: function () {
+			        console.log("取消了呢");
+			    }
+			});
+		});
+		
+		$("#reject").on("click",function(){
+			UM.confirm({
+			    text: '您确定要退回单据吗？',
+			    btnText: ["否", "是"],
+			    overlay: true,
+			    ok: function () {
+			        rejectData();
+			    },
+			    cancle: function () {
+			        console.log("取消了呢");
+			    }
+			});
+		});
+	} else {//无数据
+		summer.openWin({
+			id : 'login',
+			url : 'html/login.html',
+			pageParam : {
+				compoId : '',
+				title : '登录'
+			}
+		});
+	}
+}
+
+function loadData(billNo) {
+	var userInfo = JSON.parse(summer.getStorage('userInfo_local'));
+	//urlParam+="co_code="+_application.userInfo.coCode;
+	//urlParam += "&userId=" + userInfo.userId;
+	urlParam = "&method=mobileInterface/getApprovalPage";
+	urlParam += "&billType=";
+	urlParam += "&pageIndex=" + "0";
+	urlParam += "&pageSize=" + "1000";
+	urlParam += "&keyword=" + billNo;
+	urlParam += "&userId=" + "ec9b6236-7e0d-4749-b829-195d90ee2158";
+	urlParam += "&orgId=" + "330001";
+	urlParam += "&isDetail=" + "1";
+	urlParam += "&status=" + "0";
+	
+	$.ajax({
+		type : "POST",
+		//async : false,
+		url : "http://" + userInfo.ip + "/FS/services/fcFaService/searchTodoOrFinsh?" + urlParam,
+		success : function(data) {
+		console.log(data);
+			if(data.rows){
+				var rows = JSON.parse(data.rows);
+				for (i in rows){
+					if (i == "data"){
+						var content = rows[i];
+						bill = content["content"][0]["billData"];//获取主表信息
+					}
+				}
+				var cardDetail = bill["cardData"];//获取明细表
+				$("#billNo").text(bill["billNo"]);
+				$("#taskId").text(bill["taskId"]);
+				$("#creator").text(bill["creator"]);
+				$("#creationtime").text(bill["creationtime"]);
+				$("#qudefangshi").text(bill["businessTypeKey"]);
+			}
+		}
+	});
+}
+
+function agreeData() {
+	var userInfo = JSON.parse(summer.getStorage('userInfo_local'));
+	var urlParam = "&userId=" + "274f4476-9bb9-4538-acca-4c6a3dd993ee";//userInfo.userId;
+	urlParam += "&method=mobileInterface/billApproveBatch";
+	urlParam += "&orgId=" + "330001";
+	urlParam += "&billNo=" + bill['billNo'];
+	urlParam += "&businessKey=" + bill['businessKey'];
+	urlParam += "&businessTypeCode=" + bill['businessTypeCode'];
+	urlParam += "&taskId=" + bill['taskId'];
+	
+	$.ajax({
+		type : "POST",
+		async : false,
+		url : "http://" + userInfo.ip + "/FS/services/fcFaService/agree?" + urlParam,
+		success : function(data) {
+			var returnData = JSON.parse(data.rows);
+			if (returnData['flag'] == "SUCCESS"){
+				UM.toast({
+                    "text" : "审核成功",
+                    "duration" : 3000
+                });
+			}
+		}
+	});
+}
+
+function rejectData() {
+	var userInfo = JSON.parse(summer.getStorage('userInfo_local'));
+	var urlParam = "&userId=" + "ec9b6236-7e0d-4749-b829-195d90ee2158";//userInfo.userId;
+	urlParam += "&method=mobileInterface/reject";
+	urlParam += "&agree=0";
+	urlParam += "&orgId=" + "330001";
+	urlParam += "&businessTypeKey=" + bill['businessKey'];
+	urlParam += "&businessTypeCode=" + bill['businessTypeCode'];
+	urlParam += "&taskId=" + bill['taskId'];
+	urlParam += "&remark=th";
+	
+	$.ajax({
+		type : "POST",
+		async : false,
+		url : "http://" + userInfo.ip + "/FS/services/fcFaService/reject?" + urlParam,
+		success : function(data) {
+			var returnData = JSON.parse(data.rows);
+			if (returnData['flag'] == "SUCCESS"){
+				UM.toast({
+                    "text" : "退回成功",
+                    "duration" : 3000
+                });
+			}
+		}
+	});
+}

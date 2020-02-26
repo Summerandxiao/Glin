@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/ufgov-component.css">
+        <link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+        <link rel="stylesheet" href="../css/pages/main-module.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+        <script type="text/javascript" src="../js/knockout-2.2.0.js"></script>
+        <script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listgroup-2.7.0.js"></script>
+		<script src="../js/doT.js" ></script>
+		<script src="../js/app/salaryDetail.js" ></script>
+	</head>
+<body>
+<div class="um-page salaryDetail-main" id="salaryDetail">
+	<div class="um-header" >
+		<a href="#" onclick="summer.closeWin();" class="um-back">返回</a>
+		<h3>工资单</h3>
+	</div>
+	<div class="um-content">
+	<div style="margin-bottom: 10px;">
+		<select id="payNoMo" class="ufgov-select">
+			<!-- <option value="0">全部批次</option>
+			<option value="1" >批次1</option>
+			<option value="2">批次2</option>
+			<option value="3"  selected="true">批次3</option> -->
+		</select>
+	</div>
+    <div class="um-listgroup-wrap" id="listgroup">
+    	<ul class="um-listgroup">
+            <li class="um-listgroup-group">
+                <a class="um-box-vc um-listgroup-title">
+    				<span class="f15">基本信息</span>
+    		    </a>
+    			<ul class="um-list um-no-active" style="padding-left: 40px;">
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">姓名 </span>
+                                    <span id="name" class="f14 fr"></span>
+    							</div>
+    						</div>
+    				</li>
+    				<li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">年月</span>
+                                    <span id="month" class="f14 fr"></span>
+    							</div>
+    						</div>
+    				</li>
+    				<!-- <li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">工资类别</span>
+    				                                    <span id="prs_type" class="f14 fr"></span>
+    							</div>
+    						</div>
+    				</li> -->
+    				<!-- <li class="um-listgroup-row">
+    						<div class="um-list-item-inner">
+    							<div class="um-list-item-body">
+    								<span class="f14 fl">工资级次</span>
+    				                                    <span id="prs_level" class="f14 fr"></span>
+    							</div>
+    						</div>
+    				</li> -->
+    			</ul>
+            </li>
+            <li class="um-listgroup-group">
+                <a class="um-box-vc um-listgroup-title">
+    				<span class="f15">工资项</span>
+    		    </a>
+    			<ul class="um-list um-no-active"  style="padding-left: 40px;">
+    			<div id="salaryDetailRow"></div>
+    			<script type="text/x-dot-template" id="salaryDetail-tmpl">
+				{{ for (var i=0;i<it.length;i++ ){ }}
+				<li class="um-listgroup-row">
+						<div class="um-list-item-inner">
+							<div class="um-list-item-body">
+								<span class="f14 fl">{{=it[i].PRITEM_NAME}}</span>
+                                <span class="f14 fr">{{=it[i].PRITEM_CALC_TYPE}}</span>
+							</div>
+						</div>
+				</li>
+				{{ } }}
+				</script>	
+    			</ul>
+            </li>
+        </ul>            
+    </div>
+
+	</div>
+</div>
+
+        <script>
+        	$(function () {           
+        		//构造控件实例
+        		var listgroup = UM.listgroup("#listgroup");	//隐藏 打开		
+        	});
+        </script>
+
+</body>

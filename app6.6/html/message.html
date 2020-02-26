@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title>信息内容</title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script>
+			summerready = function() {
+			//alert(11);
+				var alertContent = summer.getStorage("alertContent");
+				$summer.byId("content").innerHTML += "<h3 style='text-align: center;style='text-align:center;padding:30px;'>&nbsp;&nbsp;&nbsp;&nbsp;"+alertContent+"</h3>";
+				var msgId = summer.getStorage("msgId");
+				var fromPage;
+				if (summer.pageParam) {
+					fromPage = summer.pageParam.fromPage;
+				}
+				//alert(msgId);
+				var ip = summer.getStorage('ip')
+				var url = 'http://' + ip + '/FS'
+				var param = "ID="+msgId;
+				$.getJSON(url+"/services/pushService/updateReadedPush?" + param, function(data) {
+					if (data.resultCode == "1") {
+						console.log("更新成已读状态成功");
+					}
+				});
+				$('#goback').click(function() {
+					if("login"==fromPage){//如果是从登陆页面跳转过来的
+						summer.closeWin();//直接关闭页面
+					}else{//如果是从信息列表页面过来的
+						summer.closeWin();
+						var jsMsgList = 'funchaveRead("'+msgId+'");';
+						summer.execScript({//调用messageList页面的funchaveRead方法 更改样式为已读
+						    winId: 'messageList',
+						    script: jsMsgList
+						});
+					}
+//					summer.openWin({
+//						id : 'messageList',
+//						//reload:'true',
+//						animation:{
+//						    type:"none", //动画类型（详见动画类型常量）
+//						    subType:"from_right", //动画子类型（详见动画子类型常量）
+//						    duration:300 //动画过渡时间，默认300毫秒
+//						},
+//						url : 'html/messageList.html',
+//						pageParam : {
+//							title : '信息列表'
+//						}
+//					});
+				});
+			
+			
+			};
+		</script>
+	</head>
+	<body>
+		<div class="um-frame" id="main">
+			 <div class="um-header" >
+			 	<a href="#" id="goback" class="um-back">返回</a>
+			<h3>信息内容</h3>
+			</div> 
+
+			<div id="content" class="um-content">
+				<!-- 	<img src="../img/banner0.jpg" style="width:100%"></img> -->
+				<div class="p15">
+					<!-- 这里插入控件和编写代码 -->
+				</div>
+			</div>
+
+			<!-- <div class="um-footer"></div> -->
+		</div>
+	</body>
+</html>

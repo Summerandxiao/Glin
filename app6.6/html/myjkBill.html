@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.sortlist-2.7.0.css">
+        <link rel="stylesheet" href="../css/iscroll.css" /> 
+        <style>
+        #startDate,#endDate{
+            display:block;
+            width: 180px;
+            height: 45px;
+            line-height:45px;
+            border: none;
+            outline: none;
+            text-align: right;
+            background: #fff;
+            font-size: 16px;
+        }
+        </style>
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script type="text/javascript" src="../js/knockout.js"></script>
+		<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listview.js"></script>
+		<script src="../js/app/myjkBill.js" ></script>
+		<script src="../js/util.js" ></script>
+		<script src="../js/doT.js" ></script>
+		<script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.sortlist-2.7.0.js"></script>
+        <script src="../js/iscroll.js"></script>
+	</head>
+	<body>
+		<div class="um-win" id="myjkBill">
+			<div class="um-header" >
+				<a href="#" onclick="summer.closeWin();" class="um-back">返回</a>
+				<h3>我的借款</h3>
+			</div>
+
+			<div class="um-content">
+				<div id="dateBtnGroup" class="btn-group btn-group-justify">
+					<button type="button" id="oneMonth" class="btn">
+						一个月
+					</button>
+					<button type="button" id="threeMonth" class="btn">
+						三个月
+					</button>
+					<button type="button" id="halfYear" class="btn">
+						半年
+					</button>
+					<button type="button" id="oneYear" class="btn">
+						一年
+					</button>
+					<button type="button" id="more" class="btn">
+						更多
+					</button>
+				</div>
+				<div id="billSearch" style="position:fixed;height:100%;left:0; right:0;bottom:0px;top:44px;padding:10px; z-index: 10; overflow:hidden;background-color: #999;opacity:0.95">
+					<ul class="um-list">
+						<li>
+							<div class="um-list-item">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left pl15">
+										单据号
+									</div>
+									<div class="um-list-item-right">
+										<input id="billNo" type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="um-list-item">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left pl15">
+										金额区间
+									</div>
+									<div class="um-list-item-right">
+										<input id="minMoney" type="text" class="form-control" placeholder="最小金额">
+									</div>
+									——
+									<div class="um-list-item-right">
+										<input id="maxMoney" type="text" class="form-control" placeholder="最大金额">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="um-list-item">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left pl15">
+										起始日期
+									</div>
+									<div class="um-list-item-right">
+										<input id="startDate" type="date" name="date" class="form-control">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="um-list-item">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left pl15">
+										结束日期
+									</div>
+									<div class="um-list-item-right">
+										<input id="endDate" type="date" name="date" class="form-control">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="um-list-item">
+								<div class="um-list-item-inner">
+									<div class="um-list-item-left pl15">
+										事由
+									</div>
+									<div class="um-list-item-right">
+										<input id="reason" type="text" class="form-control" >
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="btn-group btn-group-justify">
+						<button type="button" id="cancelBtn" class="btn">
+							取消
+						</button>
+						<button type="button" id="okBtn" class="btn">
+							确定
+						</button>
+					</div>
+				</div>
+
+				<div class="um-listview-wrap" id="listview"></div>
+				<script type="text/x-dot-template" id="listview-tmpl">
+					<ul class="um-list um-no-active" >
+					{{ for (var i=0;i<it.length;i++ ){ }}
+					<li class="um-listview-row">
+					<a class="um-box-vc  um-sortlist-title" id="n3">{{=it[i].key}}</a>
+					{{ for (var j=0, valuelen = it[i]['value'].length; j < valuelen; j++) { }}
+					<a class="btn" style="border: none;padding-bottom: 0;" onclick="subgo(this)" href="javascript:void(0)" billId="{{=it[i]['value'][j].BILL_ID}}">
+					<div class="um-list-item-inner">
+					<div class="um-list-item-body" style="padding-right:0;">
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">填报日期:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i]['value'][j].INPUT_DATE_STRING}}</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">借款事由:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i]['value'][j].REASON}}</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">借款金额:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i]['value'][j].CHECK_MONEY}}</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">审核状态:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i]['value'][j].BILL_STATUS_NAME}}</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">填报人:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i]['value'][j].INPUTOR_NAME}}</span>
+					</div>
+					</div>
+					<div class="clearfix f16">
+					<div class="um-xs-6 tl um-text-overflow">
+					<span class="fb">借款人:</span>
+					</div>
+					<div class="um-xs-6 tr um-text-overflow">
+					<span>{{=it[i]['value'][j].APP_NAME}}</span>
+					</div>
+					</div>
+					</div>
+					</div>
+					</a>
+					{{ } }}
+					</li>
+					{{ } }}
+					</ul>
+				</script>
+			</div>
+		</div>
+	</body>
+</html>

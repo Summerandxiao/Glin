@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./css/icon/iconfont.css">
+    <link rel="stylesheet" href="./css/vant.css">
+    <link rel="stylesheet" href="./css/iuapmobile.um.css">
+    <link rel="stylesheet" href="css/iuapmobile.um.listgroup-2.7.0.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="css/font-icons.css">
+    <link rel="stylesheet" href="css/pages/main-module.css">
+    <link rel="stylesheet" href="css/components/fileList.css">
+    <link rel="stylesheet" href="css/components/index.css">
+    <link rel="stylesheet" href="css/components/filterData.css">
+
+    <script src="./js/summer.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+    <script src="./js/vant.min.js"></script>
+    <script src="./js/base.js"></script>
+
+    <script src="./js/components/choose_billlist.js"></script>
+    <script src="./js/components/bills_list.js"></script>
+    <script src="./js/components/reimburse.js"></script>
+    <script src="./js/components/new_bills.js"></script>
+    <script src="./js/components/application.js"></script>
+
+    <script src="./js/components/common/budget/budget_item.js"></script>
+    <script src="./js/components/common/budget/budget_list.js"></script>
+    <script src="./js/components/common/budget/budget_detail.js"></script>
+    <script src="./js/components/common/detailOfCharge/charge_list.js"></script>
+    <script src="./js/components/process_tracking.js"></script>
+    <script src="./js/components/common/settlement/settlementDetails.js"></script>
+    <script src="./js/components/common/settlement/settlementMethod.js"></script>
+    <script src="./js/components/common/settlement/settlementInfo.js"></script>
+    <script src="./js/components/common/loan/loanInformation.js"></script>
+    <script src="./js/components/common/loan/loanDetail.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+
+</body>
+
+</html>
+<script>
+  try {
+        summer.rmStorage('appCheckedList')
+        summer.rmStorage('loanCheckedList')
+        summer.rmStorage('saveSettlementInfo')
+        summer.rmStorage('rows')
+        summer.rmStorage('baseInfoModel')
+        summer.rmStorage('expense_List')
+        console.log(333333333333333333)
+    } catch (error) {
+        console.log(error)
+    }
+    // 千分位过滤器
+    Vue.filter('parseToThousandth', function (s, point = 2) {
+        var noNegative = true;
+        s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(point) + "";
+        if (parseFloat(s) < 0) {
+            s = Math.abs(s).toFixed(2) + "";
+            noNegative = false;
+        }
+
+        var l = s.split(".")[0].split("").reverse(),
+            r = s.split(".")[1];
+        t = "";
+        for (i = 0; i < l.length; i++) {
+            if (i % 3 == 2 && i != l.length - 1) {
+                t += l[i] + ",";
+            } else {
+                t += l[i] + ""; //加上空格
+            }
+        }
+        return (noNegative ? "" : "-") + t.split("").reverse().join("") + "." + r;
+    })
+
+    var router = new VueRouter({
+        routes: [{
+            name: "chooseBills",
+            path: "/",
+            component: chooseBills,
+        }, {
+            name: "billList",
+            path: "/billList",
+            component: billList
+        }, {
+            name: "newBills",
+            path: "/newBills",
+            component: newBills
+        }, {
+            name: "reimburse",
+            path: "/reimburse",
+            component: reimburse
+        }, {
+            name: "application",
+            path: "/application",
+            component: application
+        }, {
+            name: "settlementDetails",
+            path: "/settlementDetails",
+            component: settlementDetails
+        }, {
+            name: "settlemetMethod",
+            path: "/settlemetMethod",
+            component: settlemetMethod
+        }, {
+            name: "settlementInfo",
+            path: "/settlementInfo",
+            component: settlementInfo
+        }, {
+            name: "loanInformation",
+            path: "/loanInformation",
+            component: loanInformation
+        }, {
+            name: "loanDetail",
+            path: "/loanDetail",
+            component: loanDetail
+        }, {
+            name: "budgetItem",
+            path: "/budgetItem",
+            component: budgetItem
+        }, {
+            name: "budgetList",
+            path: "/budgetList",
+            component: budgetList
+        }, {
+            name: "budgetDetail",
+            path: "/budgetDetail",
+            component: budgetDetail
+        }, {
+            name: "chargeList",
+            path: "/chargeList",
+            component: chargeList
+        }, {
+            name: "processTracking",
+            path: "/processTracking",
+            component: processTracking
+        }]
+    })
+
+    router.beforeEach((to, from, next) => {
+        if (to.path === '/newBills') {
+            try {
+                summer.rmStorage('appCheckedList')
+                summer.rmStorage('loanCheckedList')
+                summer.rmStorage('saveSettlementInfo')
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        next()
+    })
+
+    new Vue({
+        el: "#app",
+        router
+
+    })
+
+</script>

@@ -1,0 +1,30 @@
+.um-list-item-body > div:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+.um-list-item-body > div {
+	display: flex;
+}
+.um-list-item-body > div > div:nth-child(1) {
+	display: inline-block;
+	flex: 3;
+}
+.um-list-item-body > div > div:nth-child(2) {
+	display: inline-block;
+	flex: 5;
+	margin-right: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.um-listgroup-title:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+.um-listgroup-title {
+    margin-left: 20px;
+    margin-top: 10px;
+	position: relative;
+}

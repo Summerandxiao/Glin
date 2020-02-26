@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/font-icons.css">
+		<link rel="stylesheet" href="../css/iuapmobile.um.css">
+        <link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listgroup-2.7.0.css">
+        <link rel="stylesheet" href="../css/pages/main-module.css">
+		<script src="../js/summer.js" ></script>
+		<script src="../js/jquery.min.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script src="../js/app/checkAssets.js" ></script>
+		<script src="../js/doT.js" ></script>
+		
+	</head>
+<body>
+<div class="um-page AssetsPuishList-main" id="AssetsPuishList">
+	<div class="um-header" >
+		<a href="#" id="checkAssetsBack" class="um-back">返回</a>
+		<h3>待盘点资产</h3>
+		<span id="scanning" class="ti-instagram pa"></span>
+	</div>
+	<div class="um-content">
+		<ul class="um-list um-no-active" id ="checklist">
+		<script type="text/x-dot-template" id="checklist-tmpl">
+			{{ for (var i=0;i<it.length;i++ ){ }}
+		    <li class="um-listview-row">
+	            <div class="um-list-item-inner">
+	            	<div class="img-myassets fl">
+	            		<img src="../img/asseticon/ZCBG.png" title="" width="100%" height="100%">
+	            	</div>
+	                <div class="um-list-item-body fl" style="padding-right:10px">
+	                    <div class="clearfix f15">
+	                        <div class="fl">
+	                            <span id="assetCode{{=i+1}}">{{=it[i].FA_CODE}}</span>
+	                        </div>
+	                        <div class="fr">
+	                            <span>数量:{{=it[i].ORDERNUM}}</span>
+	                        </div>
+	                    </div>
+	                    <div class="clearfix f13">
+	                        <div class="fl">
+	                            <span>资产名称:</span>
+	                        </div>
+	                        <div class="fl">
+	                            <span>{{=it[i].FA_NAME}}</span>
+	                        </div>
+	                    </div>
+	                    <div class="clearfix f13">
+	                        <div class="fl">
+	                            <span>资产分类:</span>
+	                        </div>
+	                        <div class="fl">
+	                            <span>{{=it[i].FATYPE_NAME}}</span>
+	                        </div>
+	                    </div>
+	                    
+	                </div>
+
+	            </div>
+	            <div class="btn-add-plus clearfix">
+                	<span class="ti-minus fl" onclick="reduceNum(number{{=i+1}});"></span>
+                	<input type="" name="" id="number{{=i+1}}" value='{{=it[i].checkNum || '0'}}'>
+                	<span class="ti-plus fr" onclick="addNum(number{{=i+1}});"></span>
+                </div>
+		    </li>
+		    {{ } }}
+			</script>
+		    
+		</ul>
+
+	</div>
+	<div class="um-footer clearfix">	
+        <!-- <div class="btn-total fl">
+        	<span>盘点总数为2台</span><span class="ti-angle-up"></span>
+        </div> -->
+        <div class="btn-submit fr">
+        	<button id="submit">提交</button>
+        </div>
+	</div>
+</div>
+
+</body>

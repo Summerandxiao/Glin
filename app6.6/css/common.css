@@ -1,0 +1,368 @@
+#app{
+    height:100%;
+}
+.bill{
+	height:100%;
+    display:flex;
+    flex-direction:column;
+	
+}
+.header{
+    height:44px;
+ }
+ .section{
+    flex:1;
+    overflow:auto;
+    background:#efefef;
+  }
+  .footer{
+      width:100%;
+      background:white;
+      height:44px;
+      border-top:1px solid #d8d8d8;
+ }
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+}
+.increaseBtn {
+    width:100%;
+    height: 0.13rem;
+    background:white;
+    color:#00a1ea;
+    text-align: center;
+    border-top:1px solid #d8d8d8;
+    font-size: 0.04rem;
+    line-height: 0.13rem;
+}
+.infolist {
+    border-bottom:1px solid #d8d8d8;
+ }
+.detail {
+    margin-top:0.05rem;
+    margin-bottom: 0.06rem;
+ }
+.confrimBtn {
+    width:100%;
+    border-radius:26px;
+ }
+ .editBtn{
+    border-radius: 26px;
+    width: 20%;
+    height: 35px;
+    line-height: 35px;
+ }
+ .van-collapse-item__content {
+    padding: 0;
+    color: #323233;
+}
+
+.star {
+    color: red;
+    float: left;
+}
+
+.value {
+    border: none;
+    position: absolute;
+    right: 15px;
+    z-index: 2;
+    width: 160px;
+    height: 42px;
+    top: 1px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.um-list {
+    font-size: 0.04rem;
+}
+
+.um-list li {
+    position: relative;
+    height: 44px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.um-list .btn {
+    background: transparent;
+    font-size: 0.04rem;
+    line-height: 1.8;
+}
+ /* 选择新增单据类型页面 */
+ .billType-content{
+     height:100%;
+     background:#fff;
+ }
+ .billType-content .billType-cell:nth-of-type(3n+1)  .leftTitle{
+    background: rgba(255,153,0,0.1);
+     color: #ff9c00;
+}
+.billType-content .billType-cell:nth-of-type(3n+2)  .leftTitle{
+    background: rgba(153,204,0,.1);
+     color: #7dac4f;
+}
+.billType-content .billType-cell:nth-of-type(3n)  .leftTitle{
+    background: rgba(0,153,255,.1);
+     color: #4a90e2;
+}
+.billType-cell{
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+
+}
+.billType-cell .van-cell{
+    height: 0.17rem;
+    line-height: 0.17rem;
+    padding-left: 0.15rem;
+    font-size: 16px;
+}
+.billType-cell .van-cell__left-icon, .billType-cell .van-cell__right-icon{
+    height: 0.17rem;
+    line-height: 0.17rem;
+}
+.leftTitle{
+    width: 0.12rem;
+    height: 0.12rem;
+    overflow: hidden;
+    font-size: 22px;
+    border-radius: 100%;
+    line-height: 0.12rem;
+    position: absolute;
+    z-index: 20;
+    bottom: 0;
+    padding-left: 0.03rem;
+
+}
+ /* 基本信息组件 */
+.pay-account {
+    max-height: 0.35rem;
+    overflow-y: scroll;
+    /* padding: 10px 0; */
+    background: white;
+    position: absolute;
+    right: 0px;
+    /* top: 80px; */
+    z-index: 1000;
+    text-align: right;
+    width: 100%;
+    border: 1px solid #eee;
+}
+.account-name {
+    width: 100%;
+    line-height: 0.1rem;
+    padding: 0 0.03rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+.detail-items {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 10px;
+    color: #323233;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: #fff;
+    border-bottom:1px solid #eee;
+}
+.detail-input {
+    border: none;
+    height:0.11rem;
+    text-align: left;
+}
+/* 预算指标 */
+.card {
+    background-color: #fff;
+    height: 0.48rem;
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.05rem;
+    margin-top: 0.05rem;
+    padding: 0.03rem 0.03rem;
+}
+
+.label{
+    display: flex;
+    font-size:0.04rem;
+    width: 70%;
+    justify-content: space-around;
+    height: 0.07rem; 
+    line-height: 0.07rem;
+}
+.card-title {
+    background: rgba(74,144,226,.1);
+    color: rgba(74,144,226,1);
+    width: 130px;
+    text-align: center;
+    margin-right: 0.05rem;
+}
+.req{
+    display: flex;
+    justify-content: space-around;
+}
+.money-detail{
+    width: 0.35rem;
+    height: 0.16rem;
+    background: rgba(243,243,243,1);
+    margin-right: 0.03rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.checkArea{
+    width:90%;
+    height:100%;
+    display: flex;
+    justify-content: space-between;
+}
+.budget .van-checkbox__label {
+
+    height: 0.43rem;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} 
+.used {
+    display: flex;
+    justify-content: space-between;
+}
+/* 费用明细 */
+.addBorder{
+    border-top:1px solid green;
+    border-bottom:1px solid green;
+}
+.total {
+    display: flex;
+    width: 1rem;
+    height: .15rem;
+    background: #fff;
+    border-top: 2px solid #cccccc;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+ .total span {
+    font-size: 16px;
+}
+
+ .total .totalMoney {
+    display:flex;
+    justify-content: flex-start;
+    margin-right: 15px;
+    color: #E3AB45;
+    width:33%;
+}
+
+/* 附件信息 */
+.mark1{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    background: rgba(0,0,0,.3);
+    overflow:hidden;
+    display:none
+}
+.dialog{
+    z-index: 10;
+    background: #fff;
+    border-top: 2px solid #000;
+    width: 100%;
+    position: absolute;
+    left: 0;
+       transition: bottom .3s;
+}
+.dialog p {
+    border-bottom: 1px solid #ccc;
+}
+.dialog p:last-child {
+    padding: 0
+}
+.dialog p button{
+    width: 100%;
+    background: #fd5847;
+    border-radius: 0;
+    color: #fff;
+    border: 0;
+}
+/* 报销单列表 */
+.delete-button {
+    height: 100%;
+  }
+.cancel-button{
+        height: 100%;
+        background-color: rgb(203, 203, 203);
+        color:#fff;
+  }
+
+.list-card{
+    margin-top: 0.05rem;
+    height: 0.4rem;
+    background: white;
+
+}
+.cell-card{
+    width: 93%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 0.4rem;
+}
+.remiList{
+    width:100%;
+    height:0.1rem;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size:14px;     
+}
+.list-card-title{
+    width:0.33rem;
+    background:rgba(126,211,33,.1);
+    color:#7dac4f;
+    text-align: center;
+    height:20px;
+    line-height:20px;
+}
+.num{
+    width:0.27rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.date{
+    display: block;
+    margin-right:5px;
+}
+.content{
+    font-size:14px;
+    height:20px ;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+
+}
+.reason{
+    width:95%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.submitBtn{
+    width: 98px;
+    height: 32px;
+    line-height: 32px;
+}

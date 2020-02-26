@@ -1,0 +1,217 @@
+@charset "UTF-8";
+/* *
+CSS base
+* @author : huojl@yonyou.com
+*/
+/*********20170829 *********/
+/*应用*/
+.com-bg{background: #fff;}
+.com-bg .um-box-center{border: 1px solid #efeff4;height: 100%;border-top: none;margin-left: -1px;border-left: none;padding: 6;}
+.com-bg .um-grid-row{ padding: 0; height: 100px;}
+.com-bg .um-grid-row:last-child .um-box-center{border-bottom: none;}
+/*我的工资*/
+.mySalary-main .btn{border:none;border-radius: 0;color: #222;margin-bottom: -1px; z-index: 1;padding: 0; height: 38px;line-height: 38px;margin: 0 5%!important;}
+.mySalary-main .um-btn-info{border-bottom: 2px solid #01A0E9;background: none;color: #01A0E9}
+.mySalary-main{background:none}
+.mySalary-main .btn-group-justify{background: #fff;}
+.mySalary-main .um-list{background:none;border: none;}
+.mySalary-main .um-list li{margin-top: 10px;background: #fff;}
+.mySalary-main .um-list .um-list-item-inner:after{background:none}
+.mySalary-main .um-list .infor-list span{display: block;}
+.mySalary-main .um-list .infor-list span.f13{font-family: .PingFangSC-Regular;color: #787878}
+.mySalary-main .tit-time{height: 30px;border-bottom: 1px solid #efeff4;    padding: 0 10px;margin-top: 5px;}
+.mySalary-main .um-list .um-list-item-media{margin: 0}
+.mySalary-main .tit-time .fl{border-left: 3px solid #01A0E9;height: 18px;line-height: 19px; padding-left: 10px;}
+.mySalary-main .infor-list{padding: 10px 0;}
+.mySalary-main .infor-list .um-xs-6:first-child{border-right: 1px solid #efeff4;}
+.mySalary-main .infor-list .um-xs-6{padding-left: 10%}
+.mySalary-main .um-footer{text-align:left;height: 50px;background: #626D78;}
+.mySalary-main .um-footer .um-xs-6{padding-left: 10%;height: 49px;}
+.mySalary-main .um-footer .um-xs-6:first-child{border-right:1px solid #959595;}
+.mySalary-main .um-footer span{display: block;}
+.mySalary-main .um-footer span:first-child{font-size: 17px;color: #FFFFFF;}
+.mySalary-main .um-footer span:last-child{font-size: 12px;color: rgba(255,255,255,0.70);}
+/*我的工资-明细*/
+.salaryDetail-main{background:none}
+.salaryDetail-main .um-listgroup-title{padding-left: 40px;border-bottom: 1px solid #efeff4;}
+.salaryDetail-main .um-listgroup-title span{border-left: 3px solid #01A0E9;height: 18px;line-height: 19px;padding-left: 10px}
+.salaryDetail-main .um-listgroup-title ~ ul>li:last-child{border:none;}
+.salaryDetail-main .um-listgroup-group{margin-bottom: 10px;}
+.salaryDetail-main .um-listgroup-row .fl{color: #787878;}
+.salaryDetail-main .um-listgroup-row .fr{color: #222222;margin-right: 40px;}
+.salaryDetail-main .um-list .um-list-item-inner:after{background: none;}
+.salaryDetail-main .um-listgroup{border: none;outline:none;}
+.salaryDetail-main .um-listgroup li{border-bottom:1px solid #ddd;}
+/*我的资产*/
+.myAssets-main .btn-group .btn{border:none;border-radius: 0;color: #222;margin-bottom: -1px; z-index: 1;padding: 0; height: 38px;line-height: 38px;margin: 0 5%!important;}
+.myAssets-main .btn-group .um-btn-info{border-bottom: 2px solid #01A0E9;background: none;color: #01A0E9}
+.myAssets-main{background:none}
+.myAssets-main .btn-group-justify{background: #fff;}
+.myAssets-main .img-myassets{width: 90px;height: 60px;background: #eee;}
+.myAssets-main .um-list{border: none;background: none;}
+.myAssets-main .um-list li{margin-top: 10px;}
+.myAssets-main .um-list .um-list-item-inner:after{background: none;}
+.myAssets-main .um-list .um-list-item-media{margin: 0;padding: 0}
+.myAssets-main .um-list-item-body{margin-left: 15px;}
+.myAssets-main .um-list-item-body .f13{color: #787878;}
+.myAssets-main .um-list-item-body .f13 .fl{margin-right: 5px}
+/*我的资产-明细*/
+.assetsDetail-main{background:none}
+.assetsDetail-main .um-listgroup-title{padding-left:40px;border-bottom: 1px solid #efeff4;}
+.assetsDetail-main .um-listgroup-title span{border-left: 3px solid #01A0E9;height: 18px;line-height: 19px;padding-left: 10px}
+.assetsDetail-main .um-listgroup-title ~ ul>li:last-child{border:none;}
+.assetsDetail-main .um-listgroup-group{margin-bottom: 10px;}
+.assetsDetail-main .um-listgroup-row .fl{color: #787878;}
+.assetsDetail-main .um-listgroup-row .fr{color: #222222;margin-right: 40px;}
+.assetsDetail-main .um-list .um-list-item-inner:after{background: none;}
+.salaryDetail-main .um-listgroup{border: none;outline:none;}
+.assetsDetail-main .um-listgroup li{border-bottom:1px solid #ddd;}
+/*我的消息*/
+.messageList-main .um-list{background:none;width: 90%;margin-left: 5%;}
+.messageList-main .um-list li{background:#fff;margin-top: 20px;border-radius: 8px;padding-top: 10px;}
+.messageList-main .um-list .um-list-item-inner:after{background: none;}
+.messageList-main .um-list .um-list-item-media{margin: 0;padding: 0;}
+.messageList-main .title-m{text-align: center;line-height: 30px;}
+.messageList-main .title-m span{font-size: 14px;color: #333;line-height: 30px;display: inline-block;}
+.messageList-main .content-m{padding: 10px;}
+.messageList-main .content-m .message-m{color: #666}
+.messageList-main .content-m .pr10{text-align: right;}
+/*个人中心*/
+.MyInfo-main .img-myinfo{text-align: center;position: relative;padding-top: 20px;}
+.MyInfo-main .img-myinfo:before{content: "";position: absolute;left: 0;top: 0;height:90px;width: 100%;background-color:#00a1ea}
+.MyInfo-main .img-myinfo img{z-index: 1;position: relative;}
+.MyInfo-main .um-content{margin-top: -1px;}
+/* 设置背景图片 */
+.MyInfo-main .icon-home,.MyInfo-main  .icon-toDo,.MyInfo-main  .icon-share,.MyInfo-main  .icon-me {
+	height: 25px;
+	background: url(../../img/Home-25.png) center no-repeat;
+}
+.MyInfo-main .icon-toDo {
+	background-image: url(../../img/toDo-25.png);
+}
+.MyInfo-main .icon-share {
+	background-image: url(../../img/Share-25.png);
+}
+.MyInfo-main .icon-me {
+	background-image: url(../../img/Me-25.png);
+}
+/* 设置激活状态 */
+.MyInfo-main .um-footerbar-item.active .icon-home {
+	background-image: url(../../img/Home-25-active.png);
+}
+.MyInfo-main .um-footerbar-item.active .icon-toDo {
+	background-image: url(../../img/toDo-25-active.png);
+}
+.MyInfo-main .um-footerbar-item.active .icon-share {
+	background-image: url(../../img/Share-25-active.png);
+}
+.MyInfo-main .um-footerbar-item.active .icon-me {
+	background-image: url(../../img/Me-25-active.png);
+}
+/*修改密码*/
+.updatePwd-main{background: #fff;}
+.sure-btn-miss{width: 100%;text-align: center;margin-top: 30px;}
+.sure-btn-miss button{border: none;background-color: #0085ff;width: 100%;height: 40px;line-height: 40px;text-align: center;color: #fff;font-size: 15px;border-radius: 5px;}
+.updatePwd-main .um-list .um-list-item-left{text-align: right;width: 25%;margin-right: 3%}
+.updatePwd-main .um-list .um-list-item-inner:after{background: none}
+.updatePwd-main li.um-list-item{border: 1px solid #ddd;border-radius: 5px;margin-top: 10px;}
+.updatePwd-main .um-list{border: none;margin-top: 30px}
+.updatePwd-main .um-content{width: 90%;margin-left: 5%;}
+/*待办-资产入库*/
+.toDoAssetsStorage-main{background:none}
+.toDoAssetsStorage-main .um-listgroup-title{padding-left: 40px;border-bottom: 1px solid #efeff4;}
+.toDoAssetsStorage-main .um-listgroup-title span{border-left: 3px solid #01A0E9;height: 18px;line-height: 19px;padding-left: 10px}
+.toDoAssetsStorage-main .um-listgroup-title ~ ul>li:last-child{border:none;}
+.toDoAssetsStorage-main .um-listgroup-group{margin-bottom: 10px;}
+.toDoAssetsStorage-main .um-listgroup-row .fl{color: #787878;}
+.toDoAssetsStorage-main .um-listgroup-row .fr{color: #222222;margin-right: 40px;}
+.toDoAssetsStorage-main .um-list .um-list-item-inner:after{background: none;}
+.toDoAssetsStorage-main .um-listgroup{border: none;outline:none;}
+.toDoAssetsStorage-main .um-listgroup li{border-bottom:1px solid #ddd;}
+.toDoAssetsStorage-main .um-footer button{margin-top: 7px;}
+.toDoAssetsStorage-main .um-footer button.um-btn-success{background-color: #4CCFA4;border-color: #4CCFA4;}
+.toDoAssetsStorage-main .um-footer button.um-btn-info{background-color: #01A0E9;border-color: #01A0E9;}
+.toDoAssetsStorage-main .um-footer button.um-btn-danger{background-color: #F9696E;border-color: #F9696E;}
+/*待办-资产盘点*/
+.toDoAssetsPunish-main{background:none}
+.toDoAssetsPunish-main .um-listgroup-title{padding-left: 40px;border-bottom: 1px solid #efeff4;}
+.toDoAssetsPunish-main .um-listgroup-title span{border-left: 3px solid #01A0E9;height: 18px;line-height: 19px;padding-left: 10px}
+.toDoAssetsPunish-main .um-listgroup-title ~ ul>li:last-child{border:none;}
+.toDoAssetsPunish-main .um-listgroup-group{margin-bottom: 10px;}
+.toDoAssetsPunish-main .um-listgroup-row .fl{color: #787878;}
+.toDoAssetsPunish-main .um-listgroup-row .fr{color: #222222;margin-right: 40px;}
+.toDoAssetsPunish-main .um-list .um-list-item-inner:after{background: none;}
+.toDoAssetsPunish-main .um-listgroup{border: none;outline:none;}
+.toDoAssetsPunish-main .um-listgroup li{border-bottom:1px solid #ddd;}
+.toDoAssetsPunish-main .um-footer button{margin-top: 7px;}
+.toDoAssetsPunish-main .um-footer button.um-btn-success{background-color: #4CCFA4;border-color: #4CCFA4;}
+.toDoAssetsPunish-main .um-footer button.um-btn-info{background-color: #01A0E9;border-color: #01A0E9;}
+.toDoAssetsPunish-main .um-footer button.um-btn-danger{background-color: #F9696E;border-color: #F9696E;}
+/*待盘点资产*/
+.AssetsPuishList-main{background: none;}
+.AssetsPuishList-main .list-punish{background: #fff;margin-top: 10px;padding: 10px;}
+.AssetsPuishList-main .list-punish .img{background: #ddd;width: 90px;height: 60px;margin-right: 10px;}
+.AssetsPuishList-main .img-myassets{width: 50px;height: 50px;}
+.AssetsPuishList-main .um-list{border: none;background: none;}
+.AssetsPuishList-main .um-list li{margin-top: 10px;background: #fff;padding:0 10px 10px 10px;}
+.AssetsPuishList-main .um-list .um-list-item-inner:after{background: none;}
+.AssetsPuishList-main .um-list .um-list-item-media{margin: 0;padding: 0}
+.AssetsPuishList-main .um-list-item-body{margin-left: 15px;}
+.AssetsPuishList-main .um-list-item-body .f13{color: #787878;}
+.AssetsPuishList-main .um-list-item-body .f13 .fl{margin-right: 5px}
+.AssetsPuishList-main .btn-total{background: #626D78;height: 45px;width: 65%}
+.AssetsPuishList-main .btn-total span{color: #fff;margin: 0 5px;display: inline-block;line-height: 44px;font-size: 15px;}
+.AssetsPuishList-main .btn-submit{width: 35%;height: 45px;background:#01A0E9}
+.AssetsPuishList-main .btn-submit button{height: 45px;line-height: 45px;font-size: 15px;color: #fff;text-align: center;border: none;background: no-repeat;outline: none;width: 100%}
+.AssetsPuishList-main .btn-add-plus{width: 110px;height: 32px;border: 1px solid #D9D9D9;border-radius: 4px;margin-left: 65px;    }
+.AssetsPuishList-main .btn-add-plus span{width: 30px;height: 30px;display: inline-block;text-align: center;line-height: 30px;cursor: pointer;}
+.AssetsPuishList-main .btn-add-plus span:first-child{border-right: 1px solid #D9D9D9}
+.AssetsPuishList-main .btn-add-plus span:last-child{border-left: 1px solid #D9D9D9}
+.AssetsPuishList-main .btn-add-plus input{width: 48px;height: 30px;border: none;padding:0 4px;color: red;font-size: 15px;outline: none;}
+.AssetsPuishList-main .ti-instagram{right: 10px;top: 12px;color: #fff;cursor: pointer;}
+/*待办*/
+.Upcoming-main{background: none;}
+.Upcoming-main .list-punish{background: #fff;margin-top: 10px;padding: 10px;}
+.Upcoming-main .list-punish .img{background: #ddd;width: 90px;height: 60px;margin-right: 10px;}
+.Upcoming-main .img-myassets{width: 50px;height: 50px}
+.Upcoming-main .um-list{border: none;background: none;}
+.Upcoming-main .um-list li{background: #fff;padding:0 10px 10px 10px;    border-bottom: 1px solid #ddd;}
+.Upcoming-main .um-list .um-list-item-inner:after{background: none;}
+.Upcoming-main .um-list .um-list-item-media{margin: 0;padding: 0}
+.Upcoming-main .um-list-item-body{margin-left: 15px;}
+.Upcoming-main .um-list-item-body .f13{color: #787878;}
+.Upcoming-main .um-list-item-body .f13 .fl,.Upcoming-main .um-list-item-body .f15 .fl{margin-right: 10px}
+/* 设置背景图片 */
+.Upcoming-main .icon-home,.Upcoming-main  .icon-toDo,.Upcoming-main  .icon-share,.Upcoming-main  .icon-me {
+	height: 25px;
+	background: url(../../img/Home-25.png) center no-repeat;
+}
+.Upcoming-main .icon-toDo {
+	background-image: url(../../img/toDo-25.png);
+}
+.Upcoming-main .icon-share {
+	background-image: url(../../img/Share-25.png);
+}
+.Upcoming-main .icon-me {
+	background-image: url(../../img/Me-25.png);
+}
+/* 设置激活状态 */
+.Upcoming-main .um-footerbar-item.active .icon-home {
+	background-image: url(../../img/Home-25-active.png);
+}
+.Upcoming-main .um-footerbar-item.active .icon-toDo {
+	background-image: url(../../img/toDo-25-active.png);
+}
+.Upcoming-main .um-footerbar-item.active .icon-share {
+	background-image: url(../../img/Share-25-active.png);
+}
+.Upcoming-main .um-footerbar-item.active .icon-me {
+	background-image: url(../../img/Me-25-active.png);
+}
+.Upcoming-main .um-listgroup-title{padding-left: 10px;border-bottom: 1px solid #efeff4;    margin-top: 10px;}
+.Upcoming-main .um-listgroup-title span{border-left: 3px solid #01A0E9;height: 18px;line-height: 19px;padding-left: 10px}
+.Upcoming-main .loading{font-size: 13px;color: #01A0E9;}
+.Upcoming-main .um-text-overflow{width: 48%;}
+.Upcoming-main .tabbar{text-align: center;width: 50%;margin: 0 auto;}
+.Upcoming-main .tabbar li{float: left;color: #D9D9D9;font-size: 16px;    height: 44px;line-height: 44px; padding: 0 15px;}
+.Upcoming-main .tabbar li.active{color: #fff;border-bottom: 2px solid #fff;}
